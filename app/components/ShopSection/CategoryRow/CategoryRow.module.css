@@ -1,0 +1,156 @@
+.outerWrapper {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+}
+
+.wrapper {
+  flex: 1;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding: 1.75rem 0 0.75rem;
+}
+
+.wrapper::-webkit-scrollbar {
+  display: none;
+}
+
+.track {
+  display: flex;
+  gap: 0.75rem;
+  min-width: max-content;
+}
+
+/* ── Scroll arrows ── */
+.scrollArrow {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #fff;
+  border: 1.5px solid #e2e8f0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+  color: #475569;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  padding: 0;
+  align-self: center;
+}
+
+.scrollArrow:hover:not(:disabled) {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+  color: #1e293b;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.14);
+}
+
+.scrollArrowDisabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.scrollArrowLeft  { margin-right: 0.35rem; }
+.scrollArrowRight { margin-left: 0.35rem; }
+
+.item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.5rem 0.75rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  border-radius: 14px;
+  transition: transform 0.2s ease, background 0.2s ease;
+  min-width: 96px;
+}
+
+.item:hover {
+  transform: translateY(-4px);
+  background: rgba(0, 0, 0, 0.02);
+}
+
+.itemActive {
+  background: rgba(0, 0, 0, 0.02);
+}
+
+.iconBox {
+  width: 88px;
+  height: 88px;
+  border-radius: 18px;
+  border: 2px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: all 0.22s ease;
+  flex-shrink: 0;
+}
+
+.item:hover .iconBox {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  transform: scale(1.04);
+}
+
+.itemActive .iconBox {
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+}
+
+.label {
+  font-size: 0.77rem;
+  text-align: center;
+  line-height: 1.3;
+  max-width: 90px;
+  transition: color 0.2s;
+}
+
+.badge {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #64748b;
+  background: #f1f5f9;
+  border-radius: 20px;
+  padding: 0.1rem 0.5rem;
+  transition: all 0.2s;
+}
+
+/* ── Mobile ── */
+@media (max-width: 768px) {
+  .iconBox {
+    width: 72px;
+    height: 72px;
+    border-radius: 14px;
+  }
+
+  .item {
+    min-width: 78px;
+    padding: 0.4rem 0.5rem;
+  }
+
+  .label {
+    font-size: 0.7rem;
+    max-width: 74px;
+  }
+}
+
+@media (max-width: 480px) {
+  .track {
+    gap: 0.5rem;
+  }
+
+  .iconBox {
+    width: 64px;
+    height: 64px;
+    border-radius: 12px;
+  }
+
+  .item {
+    min-width: 70px;
+  }
+}

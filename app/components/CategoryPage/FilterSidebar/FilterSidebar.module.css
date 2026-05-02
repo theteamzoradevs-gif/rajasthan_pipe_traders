@@ -1,0 +1,279 @@
+/* ── Mobile overlay ── */
+.overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 40;
+}
+
+/* ── Sidebar shell ── */
+.sidebar {
+  width: 260px;
+  flex-shrink: 0;
+  align-self: flex-start;
+  position: sticky;
+  top: 1.5rem;
+}
+
+.sidebarInner {
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+/* ── Header ── */
+.sidebarHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.1rem;
+  border-bottom: 1px solid #f1f5f9;
+  background: #fafafa;
+}
+
+.headerLeft {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.filterBadge {
+  background: #2563eb;
+  color: #fff;
+  font-size: 0.65rem;
+  font-weight: 700;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.headerRight {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.resetBtn {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #2563eb;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.15s;
+}
+
+.resetBtn:hover {
+  color: #1d4ed8;
+  text-decoration: underline;
+}
+
+.closeBtn {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #64748b;
+  padding: 0.15rem;
+  border-radius: 4px;
+  transition: color 0.15s;
+}
+
+.closeBtn:hover {
+  color: #0f172a;
+}
+
+/* ── Filter groups ── */
+.filterGroup {
+  padding: 1rem 1.1rem;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.filterGroup:last-child {
+  border-bottom: none;
+}
+
+.groupTitle {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #64748b;
+  margin: 0 0 0.85rem;
+}
+
+/* ── Brand checkboxes ── */
+.checkList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.checkItem {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  cursor: pointer;
+  padding: 0.2rem 0;
+}
+
+.checkbox {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  accent-color: #2563eb;
+  flex-shrink: 0;
+}
+
+.checkLabel {
+  font-size: 0.82rem;
+  color: #334155;
+  flex: 1;
+  line-height: 1.3;
+}
+
+.checkCount {
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: #94a3b8;
+  background: #f8fafc;
+  padding: 0.1rem 0.4rem;
+  border-radius: 20px;
+}
+
+/* ── Price range ── */
+.priceRange {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.priceInputRow {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.priceInputWrap {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 0.35rem 0.55rem;
+  flex: 1;
+}
+
+.rupee {
+  font-size: 0.78rem;
+  color: #64748b;
+  font-weight: 600;
+}
+
+.priceInput {
+  width: 100%;
+  border: none;
+  background: transparent;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #1e293b;
+  outline: none;
+  min-width: 0;
+}
+
+.priceInput::-webkit-inner-spin-button,
+.priceInput::-webkit-outer-spin-button {
+  opacity: 0;
+}
+
+.priceSep {
+  color: #cbd5e1;
+  font-size: 0.75rem;
+  flex-shrink: 0;
+}
+
+.rangeSliderWrap {
+  position: relative;
+  height: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.rangeSlider {
+  position: absolute;
+  width: 100%;
+  height: 4px;
+  background: transparent;
+  outline: none;
+  appearance: none;
+  pointer-events: none;
+}
+
+.rangeSlider::-webkit-slider-thumb {
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #2563eb;
+  cursor: pointer;
+  pointer-events: all;
+  border: 2px solid #fff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+}
+
+.rangeSlider::-webkit-slider-runnable-track {
+  height: 4px;
+  background: #dbeafe;
+  border-radius: 2px;
+}
+
+.priceHint {
+  font-size: 0.7rem;
+  color: #94a3b8;
+  text-align: center;
+}
+
+/* ── Mobile ── */
+@media (max-width: 1024px) {
+  .overlay {
+    display: block;
+  }
+
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100dvh;
+    width: 300px;
+    z-index: 50;
+    overflow-y: auto;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    border-radius: 0 16px 16px 0;
+  }
+
+  .sidebarOpen {
+    transform: translateX(0);
+  }
+
+  .sidebarInner {
+    border-radius: 0;
+    min-height: 100%;
+  }
+
+  .closeBtn {
+    display: flex;
+  }
+}

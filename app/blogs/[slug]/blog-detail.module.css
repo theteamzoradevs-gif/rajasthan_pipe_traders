@@ -1,0 +1,130 @@
+.page {
+  min-height: 100vh;
+  background: #f3f7fc;
+}
+
+.wrap {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 26px 20px 48px;
+}
+
+.article {
+  background: #fff;
+  border: 1px solid #d9e6f5;
+  border-radius: 14px;
+  box-shadow: 0 2px 10px rgba(16, 24, 40, 0.06);
+  overflow: hidden;
+}
+
+.hero {
+  width: 100%;
+  max-height: 420px;
+  background: #e9eff6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero img {
+  width: 100%;
+  max-height: 420px;
+  object-fit: contain;
+}
+
+.head {
+  padding: 20px 24px 8px;
+}
+
+.title {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.7rem, 3vw, 2.5rem);
+  line-height: 1.22;
+  color: #1f2937;
+  margin: 0 0 8px;
+}
+
+.meta {
+  color: #4f647c;
+  font-size: 0.95rem;
+}
+
+.content {
+  padding: 8px 24px 28px;
+  color: #253237;
+  line-height: 1.75;
+  font-size: 1.03rem;
+}
+
+.content :global(h1),
+.content :global(h2),
+.content :global(h3),
+.content :global(h4) {
+  color: #1f2937;
+  font-family: Georgia, "Times New Roman", serif;
+  margin-top: 1.15em;
+  margin-bottom: 0.45em;
+}
+
+.content :global(p),
+.content :global(ul),
+.content :global(ol),
+.content :global(blockquote) {
+  margin-bottom: 0.85em;
+}
+
+.content :global(ul),
+.content :global(ol) {
+  padding-left: 1.3rem;
+}
+
+.content :global(a) {
+  color: #0b6cbe;
+}
+
+.content :global(img) {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+.actions {
+  margin-top: 18px;
+}
+
+.backBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 9px 16px;
+  border-radius: 999px;
+  text-decoration: none;
+  color: #fff;
+  background: #0b74d1;
+  font-weight: 600;
+  font-size: 0.92rem;
+}
+
+@media (max-width: 768px) {
+  .wrap {
+    padding: 16px 12px 30px;
+  }
+
+  .head {
+    padding: 14px 14px 6px;
+  }
+
+  .content {
+    padding: 8px 14px 18px;
+    font-size: 0.98rem;
+    line-height: 1.65;
+  }
+
+  .hero {
+    max-height: 280px;
+  }
+
+  .hero img {
+    max-height: 280px;
+  }
+}

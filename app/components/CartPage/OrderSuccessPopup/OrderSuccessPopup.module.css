@@ -1,0 +1,278 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+  overflow-y: auto;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modal {
+  background: #fff;
+  border-radius: 24px;
+  padding: 2.25rem 2rem;
+  max-width: 440px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  animation: slideUp 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.25);
+  box-sizing: border-box;
+  position: relative;
+}
+
+.closeBtn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #94a3b8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem;
+  border-radius: 6px;
+  transition: color 0.15s, background 0.15s;
+}
+
+.closeBtn:hover {
+  color: #334155;
+  background: #f1f5f9;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(40px) scale(0.95); opacity: 0; }
+  to { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+/* ── Success icon ── */
+.iconWrap {
+  margin-bottom: 0.25rem;
+}
+
+.circle {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #16a34a, #22c55e);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 24px rgba(34, 197, 94, 0.35);
+  animation: popIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both;
+}
+
+@keyframes popIn {
+  from { transform: scale(0); }
+  to { transform: scale(1); }
+}
+
+.check {
+  animation: drawCheck 0.4s ease 0.4s both;
+  stroke-dasharray: 40;
+  stroke-dashoffset: 40;
+}
+
+@keyframes drawCheck {
+  to { stroke-dashoffset: 0; }
+}
+
+/* ── Text ── */
+.title {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0;
+  text-align: center;
+}
+
+.subtitle {
+  font-size: 0.85rem;
+  color: #64748b;
+  text-align: center;
+  line-height: 1.55;
+  margin: 0;
+  max-width: 320px;
+}
+
+/* ── Summary box ── */
+.summaryBox {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 1rem;
+  width: 100%;
+}
+
+.summaryHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #475569;
+  margin-bottom: 0.65rem;
+  padding-bottom: 0.65rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.summaryTotal {
+  color: #0f172a;
+  font-size: 0.9rem;
+}
+
+.itemList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.itemRow {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.78rem;
+}
+
+.itemName {
+  flex: 1;
+  color: #334155;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.itemMeta {
+  color: #94a3b8;
+  font-size: 0.72rem;
+  white-space: nowrap;
+}
+
+.itemPrice {
+  font-weight: 700;
+  color: #0f172a;
+  font-size: 0.78rem;
+  white-space: nowrap;
+}
+
+.moreItems {
+  font-size: 0.72rem;
+  color: #64748b;
+  text-align: center;
+  padding-top: 0.25rem;
+}
+
+.paymentNote {
+  font-size: 0.7rem;
+  color: #94a3b8;
+  text-align: center;
+  margin: 0;
+}
+
+/* ── Buttons ── */
+.actions {
+  width: 100%;
+  margin-top: 0.25rem;
+}
+
+.continueBtn {
+  width: 100%;
+  background: #2563eb;
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 700;
+  padding: 0.85rem 1rem;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+}
+
+.continueBtn:hover {
+  background: #1d4ed8;
+  transform: translateY(-1px);
+}
+
+@media (max-width: 480px) {
+  .overlay {
+    padding: 0.75rem;
+    align-items: flex-end;
+  }
+
+  .modal {
+    padding: 1.5rem 1.25rem 1.75rem;
+    border-radius: 20px 20px 16px 16px;
+    gap: 0.75rem;
+    max-width: 100%;
+    margin-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  .circle {
+    width: 60px;
+    height: 60px;
+  }
+
+  .circle svg {
+    width: 26px;
+    height: 26px;
+  }
+
+  .title {
+    font-size: 1.2rem;
+  }
+
+  .subtitle {
+    font-size: 0.8rem;
+    max-width: 100%;
+  }
+
+  .summaryBox {
+    padding: 0.85rem;
+  }
+
+  .summaryHeader {
+    font-size: 0.75rem;
+  }
+
+  .summaryTotal {
+    font-size: 0.82rem;
+  }
+
+  .itemRow {
+    font-size: 0.74rem;
+  }
+
+  .continueBtn {
+    padding: 0.9rem 1rem;
+    font-size: 0.88rem;
+    min-height: 48px;
+  }
+
+  .paymentNote {
+    font-size: 0.66rem;
+  }
+
+  .actions {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+}

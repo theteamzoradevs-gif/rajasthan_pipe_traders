@@ -1,0 +1,495 @@
+.card {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: clamp(0.75rem, 2vw, 1.25rem);
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: clamp(0.85rem, 2.5vw, 1.25rem);
+  transition: box-shadow 0.2s ease;
+  min-width: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.card:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.07);
+}
+
+/* ── Image ── */
+.imageWrap {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  border-radius: 12px;
+  background: #f8fafc;
+  border: 1px solid #f1f5f9;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+/* ── Column 1: product details ── */
+.detailsCol {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.topRow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.nameGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  min-width: 0;
+}
+
+.nameRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+  min-width: 0;
+}
+
+.name {
+  font-size: clamp(0.82rem, 1.2vw + 0.65rem, 0.95rem);
+  font-weight: 700;
+  color: #1e293b;
+  text-decoration: none;
+  line-height: 1.35;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  transition: color 0.15s;
+  min-width: 0;
+}
+
+.name:hover {
+  color: #2563eb;
+}
+
+.comboBadge {
+  font-size: 0.62rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #047857;
+  background: #d1fae5;
+  border: 1px solid #6ee7b7;
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.categoryRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 0.5rem;
+}
+
+.category {
+  font-size: 0.7rem;
+  color: #94a3b8;
+}
+
+/* Same pill look as ShopSection ProductGrid (home / category listings) */
+.listingBrand {
+  font-size: 0.58rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.12rem 0.4rem;
+  border-radius: 4px;
+}
+
+.listingBrandHitech {
+  color: #6d28d9;
+  background: color-mix(in srgb, #7c3aed 12%, white);
+  border: 1px solid color-mix(in srgb, #7c3aed 25%, white);
+}
+
+.listingBrandTejas {
+  color: #1d4ed8;
+  background: color-mix(in srgb, #2563eb 12%, white);
+  border: 1px solid color-mix(in srgb, #2563eb 25%, white);
+}
+
+.listingBrandNstar {
+  color: #0f766e;
+  background: color-mix(in srgb, #14b8a6 14%, white);
+  border: 1px solid color-mix(in srgb, #0d9488 28%, white);
+}
+
+.listingBrandDefault {
+  color: #6d28d9;
+  background: color-mix(in srgb, #7c3aed 12%, white);
+  border: 1px solid color-mix(in srgb, #7c3aed 25%, white);
+}
+
+.sellerLine {
+  display: block;
+  margin-top: 0.2rem;
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: #64748b;
+}
+
+.comboInlineMsg {
+  margin: 0.35rem 0 0;
+  font-size: 0.72rem;
+  line-height: 1.4;
+  font-weight: 700;
+  color: #065f46;
+  background: #ecfdf5;
+  border: 1px solid #86efac;
+  border-radius: 8px;
+  padding: 0.35rem 0.5rem;
+  width: fit-content;
+  max-width: 100%;
+}
+
+.removeBtn {
+  background: none;
+  border: 1px solid #f1f5f9;
+  border-radius: 8px;
+  color: #94a3b8;
+  padding: 0.35rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.18s ease;
+  flex-shrink: 0;
+}
+
+.removeBtn:hover {
+  background: #fee2e2;
+  border-color: #fca5a5;
+  color: #dc2626;
+}
+
+.cartMoqRoot {
+  width: 100%;
+  max-width: 100%;
+}
+
+.metaControlsRow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.8rem;
+  width: 100%;
+}
+
+/* Unit price + quantity summary above steppers (moved from pricing column) */
+.cartUnitQtyMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.cartControlsCol {
+  width: min(100%, 320px);
+  flex-shrink: 0;
+}
+
+.cartMetaRow {
+  display: flex;
+  flex-direction: column;
+  gap: 0.28rem;
+}
+
+.cartMetaLabel {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* ── Column 2: pricing (total + savings) ── */
+.pricingCol {
+  flex-shrink: 0;
+  width: min(100%, 240px);
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  padding-left: 1.25rem;
+  border-left: 1px solid #f1f5f9;
+  min-width: 0;
+}
+
+.pricingRow {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.pricingLabel {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.pricingValues {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.45rem 0.65rem;
+}
+
+.strike {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: #94a3b8;
+  text-decoration: line-through;
+}
+
+.priceMain {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #1e293b;
+}
+
+.totalMain {
+  font-size: clamp(0.95rem, 1.5vw + 0.65rem, 1.08rem);
+  font-weight: 800;
+  color: #0f172a;
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.comboPriceAppliedBadge {
+  font-size: 0.58rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: #047857;
+  background: #d1fae5;
+  border: 1px solid #6ee7b7;
+  padding: 0.12rem 0.38rem;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+.gstNote {
+  font-size: 0.65rem;
+  color: #94a3b8;
+  width: 100%;
+}
+
+.qtySummary {
+  margin: 0;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #334155;
+  line-height: 1.35;
+}
+
+.qtySummaryStack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  align-items: flex-start;
+}
+
+.qtySummaryLine {
+  margin: 0;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #334155;
+  line-height: 1.45;
+  max-width: 100%;
+  word-break: keep-all;
+  overflow-wrap: normal;
+  white-space: normal;
+}
+
+.savingBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  background: linear-gradient(135deg, #dcfce7, #bbf7d0);
+  color: #15803d;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.28rem 0.65rem;
+  border-radius: 20px;
+  border: 1px solid #86efac;
+  white-space: normal;
+  text-align: center;
+  justify-content: center;
+  max-width: 100%;
+  width: fit-content;
+  margin-top: 0.15rem;
+}
+
+@media (max-width: 1300px) and (min-width:900px) {
+  .metaControlsRow {
+flex-direction: column;
+  }
+}
+
+@media (max-width: 1100px) {
+  .imageWrap {
+    width: 120px;
+    height: 160px;
+  }
+}
+
+@media (max-width: 900px) {
+  .detailsCol {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+
+  .cartUnitQtyMeta {
+    max-width: 100%;
+  }
+
+  .metaControlsRow {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .cartControlsCol {
+    width: 100%;
+  }
+
+  .pricingCol {
+    flex: 1 1 100%;
+    width: 100%;
+    max-width: none;
+    padding-left: 0;
+    border-left: none;
+    border-top: 1px solid #f1f5f9;
+    padding-top: 1rem;
+    margin-top: 0.15rem;
+  }
+}
+
+@media (max-width: 720px) {
+  .imageWrap {
+    width: 96px;
+    height: 120px;
+  }
+
+  .detailsCol {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .card {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+  }
+
+  .imageWrap {
+    width: 76px;
+    height: 76px;
+    max-width: none;
+    margin: 0;
+    border-radius: 10px;
+  }
+
+  .topRow {
+    align-items: flex-start;
+  }
+
+  .detailsCol {
+    flex: 1 1 0;
+    min-width: 0;
+    width: auto;
+  }
+
+  .pricingCol {
+    width: 100%;
+    flex: 1 1 100%;
+  }
+
+  .qtySummaryLine {
+    font-size: 0.82rem;
+  }
+
+  .priceMain {
+    font-size: 0.88rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .card {
+    padding: 0.75rem max(0.65rem, env(safe-area-inset-left)) 0.75rem max(0.65rem, env(safe-area-inset-right));
+    gap: 0.7rem;
+  }
+
+  .imageWrap {
+    width: 68px;
+    height: 68px;
+    border-radius: 8px;
+  }
+
+  .detailsCol {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+
+  .removeBtn {
+    padding: 0.4rem 0.65rem;
+    min-height: 40px;
+    min-width: 40px;
+  }
+
+  .savingBadge {
+    font-size: 0.62rem;
+    padding: 0.22rem 0.5rem;
+  }
+
+  .cartMetaLabel {
+    font-size: 0.6rem;
+  }
+
+  .strike {
+    font-size: 0.76rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .card {
+    padding: 0.65rem 0.5rem;
+    border-radius: 12px;
+  }
+
+  .imageWrap {
+    width: 60px;
+    height: 60px;
+  }
+
+  .detailsCol {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+
+  .qtySummaryLine {
+    font-size: 0.78rem;
+  }
+}

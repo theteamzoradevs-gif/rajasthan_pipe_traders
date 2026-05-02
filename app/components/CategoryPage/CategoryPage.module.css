@@ -1,0 +1,410 @@
+.page {
+  min-height: 100vh;
+  background: #f8fafc;
+}
+
+/* ── Breadcrumb ── */
+.breadcrumbBar {
+  background: #fff;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.breadcrumbInner {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0.75rem 2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.8rem;
+}
+
+.breadcrumbLink {
+  color: #64748b;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.15s;
+}
+
+.breadcrumbLink:hover {
+  color: #2563eb;
+}
+
+.breadcrumbInner svg {
+  color: #cbd5e1;
+  flex-shrink: 0;
+}
+
+.breadcrumbCurrent {
+  color: #0f172a;
+  font-weight: 600;
+}
+
+/* ── Hero ── */
+.hero {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.heroInner {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 2.15rem 2rem 2.3rem;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.heroText {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  max-width: 760px;
+}
+
+.heroTitle {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #0f172a;
+  line-height: 1.15;
+  margin: 0;
+}
+
+.heroDesc {
+  font-size: 0.9rem;
+  color: #64748b;
+  max-width: 520px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.heroCount {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #475569;
+  background: rgba(0, 0, 0, 0.07);
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  width: fit-content;
+  margin-top: 0.2rem;
+}
+
+/* ── Main layout ── */
+.main {
+  padding: 2rem 0 5rem;
+}
+
+.mainInner {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+/* ── Content area ── */
+.content {
+  flex: 1;
+  min-width: 0;
+}
+
+/* ── Toolbar ── */
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.toolbarLeft {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.filterToggleBtn {
+  display: none;
+  align-items: center;
+  gap: 0.4rem;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  color: #374151;
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 0.5rem 0.9rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.filterToggleBtn:hover {
+  background: #f1f5f9;
+}
+
+.filterCount {
+  background: #2563eb;
+  color: #fff;
+  font-size: 0.62rem;
+  font-weight: 700;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.resultCount {
+  font-size: 0.82rem;
+  color: #64748b;
+  margin: 0;
+}
+
+.toolbarRight {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.sortLabel {
+  font-size: 0.82rem;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.sortSelect {
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  color: #374151;
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.18s;
+}
+
+.sortSelect:focus {
+  border-color: #93c5fd;
+}
+
+/* ── Active filter chips ── */
+.activeFilters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.filterChip {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: #eff6ff;
+  color: #1d4ed8;
+  border: 1px solid #bfdbfe;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.28rem 0.65rem;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.filterChip:hover {
+  background: #dbeafe;
+}
+
+.clearAllChip {
+  background: none;
+  border: 1px dashed #cbd5e1;
+  color: #64748b;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.28rem 0.65rem;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.clearAllChip:hover {
+  background: #f1f5f9;
+  color: #374151;
+}
+
+/* ── Empty state ── */
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 5rem 2rem;
+  text-align: center;
+}
+
+.empty h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0;
+}
+
+.empty p {
+  font-size: 0.85rem;
+  color: #94a3b8;
+  margin: 0;
+}
+
+.resetFiltersBtn {
+  background: #2563eb;
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 0.65rem 1.4rem;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  transition: background 0.18s;
+}
+
+.resetFiltersBtn:hover {
+  background: #1d4ed8;
+}
+
+/* ── Responsive ── */
+@media (max-width: 1024px) {
+  .heroInner,
+  .mainInner {
+    gap: 1.25rem;
+  }
+
+  .filterToggleBtn {
+    display: flex;
+  }
+
+  /* sidebar is handled via its own mobile CSS (fixed drawer) */
+}
+
+@media (max-width: 768px) {
+  .breadcrumbInner,
+  .heroInner,
+  .mainInner {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .heroTitle {
+    font-size: 1.5rem;
+  }
+
+  .heroDesc {
+    max-width: 100%;
+    font-size: 0.84rem;
+    line-height: 1.45;
+  }
+
+  .heroCount {
+    font-size: 0.72rem;
+  }
+
+  .main {
+    padding: 1.25rem 0 4rem;
+  }
+
+  .toolbar {
+    align-items: stretch;
+    gap: 0.75rem;
+  }
+
+  .toolbarLeft,
+  .toolbarRight {
+    width: 100%;
+  }
+
+  .toolbarLeft {
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+  }
+
+  .toolbarRight {
+    justify-content: space-between;
+  }
+
+  .resultCount {
+    font-size: 0.78rem;
+  }
+}
+
+@media (max-width: 560px) {
+  .breadcrumbInner {
+    font-size: 0.76rem;
+    padding-top: 0.62rem;
+    padding-bottom: 0.62rem;
+  }
+
+  .heroInner {
+    padding-top: 1.35rem;
+    padding-bottom: 1.35rem;
+  }
+
+  .heroTitle {
+    font-size: 1.3rem;
+  }
+
+  .toolbar {
+    margin-bottom: 0.9rem;
+  }
+
+  .filterToggleBtn {
+    min-height: 36px;
+    font-size: 0.78rem;
+  }
+
+  .toolbarRight {
+    align-items: stretch;
+    gap: 0.4rem;
+  }
+
+  .sortLabel {
+    font-size: 0.76rem;
+    align-self: center;
+  }
+
+  .sortSelect {
+    flex: 1 1 auto;
+    min-width: 0;
+    width: 100%;
+    font-size: 0.78rem;
+    min-height: 36px;
+  }
+
+  .activeFilters {
+    margin-bottom: 1rem;
+    gap: 0.4rem;
+  }
+
+  .filterChip,
+  .clearAllChip {
+    font-size: 0.7rem;
+  }
+
+  .empty {
+    padding: 3rem 1rem;
+    gap: 0.6rem;
+  }
+
+  .empty h3 {
+    font-size: 1rem;
+  }
+
+  .empty p {
+    font-size: 0.8rem;
+  }
+}

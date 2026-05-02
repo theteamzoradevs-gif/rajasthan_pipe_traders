@@ -1,0 +1,788 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  width: 100%;
+  --moq-unit-chip-width: 4.9rem;
+}
+
+.row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.bulkRows {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.rowLabel {
+  font-size: 0.62rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #0369a1;
+}
+
+.stepper {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.35rem;
+  background: #fff;
+  border: 1px solid #bae6fd;
+  border-radius: 8px;
+  padding: 0.2rem 0.45rem;
+  min-height: 36px;
+  width: max-content;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.stepBtn {
+  width: 28px;
+  height: 28px;
+  border: none;
+  background: #0284c7;
+  border-radius: 4px;
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.stepBtn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.stepBtn:hover:not(:disabled) {
+  background: #0369a1;
+  color: #fff;
+}
+
+.stepValue {
+  min-width: 1.6rem;
+  text-align: center;
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: #0369a1;
+}
+
+.stepInput {
+  width: 2.8rem;
+  border: none;
+  background: transparent;
+  text-align: center;
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: #0369a1;
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+
+.stepInput::-webkit-outer-spin-button,
+.stepInput::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.unit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #0ea5e9;
+  margin-left: 0.15rem;
+  white-space: nowrap;
+  flex: 0 0 var(--moq-unit-chip-width);
+  min-width: var(--moq-unit-chip-width);
+  max-width: var(--moq-unit-chip-width);
+  text-align: center;
+  box-sizing: border-box;
+}
+
+/* Home product cards: outer box around stepper; bulk rows stacked vertically */
+.cardListingLayout {
+  width: 100%;
+}
+
+/* Product detail: same stepper + unit chip UI as listing cards, full width in premium block */
+.pdpCardListing {
+  width: 100%;
+  min-width: 0;
+  align-self: stretch;
+}
+
+/* Product detail only: bulk (bags + pkts) card steppers side by side on one row */
+.cardListingLayout.pdpCardListing .bulkRows {
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  gap: 0.75rem 1rem;
+}
+
+.cardListingLayout.pdpCardListing .bulkRows > .cardListingOuterBox {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+/* PDP on phones: stack bag + packet rows to avoid overflow */
+@media (max-width: 640px) {
+  .cardListingLayout.pdpCardListing .bulkRows {
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 0.45rem;
+  }
+
+  .cardListingLayout.pdpCardListing .bulkRows > .cardListingOuterBox {
+    flex: 1 1 auto;
+    width: 100%;
+  }
+}
+
+/*
+ * Cart line items: same − / value / + + unit chip as listing cards, smaller touch targets,
+ * always stacked (never the PDP side-by-side row).
+ */
+.cardListingLayout.cartCardListing {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+}
+
+.cardListingLayout.cartCardListing .bulkRows {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  gap: 0.4rem;
+  width: 100%;
+}
+
+.cardListingLayout.cartCardListing .cardListingOuterBox {
+  width: 100%;
+  min-width: 0;
+}
+
+.cardListingLayout.cartCardListing .stepper.stepperCardListing {
+  min-height: 36px;
+  padding: 0.22rem 0.45rem;
+  gap: 0.35rem;
+  width: 100%;
+  max-width: 100%;
+}
+
+.cardListingLayout.cartCardListing .stepperCardListing .stepBtn {
+  width: 28px;
+  height: 28px;
+  min-width: 28px;
+  min-height: 28px;
+  flex: 0 0 28px;
+  font-size: 1rem;
+}
+
+.cardListingLayout.cartCardListing .stepperCardListing .stepValue,
+.cardListingLayout.cartCardListing .stepperCardListing .stepInput {
+  font-size: 0.85rem;
+  min-width: 2rem;
+}
+
+.cardListingLayout.cartCardListing .cardListingUnitChip {
+  font-size: 0.6rem;
+  padding: 0.2rem 0.45rem;
+  flex: 0 0 var(--moq-unit-chip-width);
+  min-width: var(--moq-unit-chip-width);
+  max-width: var(--moq-unit-chip-width);
+  margin-left: 0.2rem;
+}
+
+@media (max-width: 480px) {
+  .cardListingLayout.cartCardListing .stepper.stepperCardListing {
+    min-height: 36px;
+    padding: 0.22rem 0.45rem;
+    gap: 0.35rem;
+  }
+
+  .cardListingLayout.cartCardListing .stepperCardListing .stepBtn {
+    width: 28px;
+    height: 28px;
+    min-width: 28px;
+    min-height: 28px;
+    flex: 0 0 28px;
+    font-size: 1rem;
+  }
+}
+
+.cardListingLayout .bulkRows {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+  align-items: stretch;
+}
+
+/* Category bulk cards: row caption + full-width stepper; bag/pkt rows same width */
+.labeledBulkRows {
+  width: 100%;
+  min-width: 0;
+}
+
+.categoryCardListing {
+  --moq-unit-chip-width: 2.85rem;
+}
+
+.labeledBulkRows .bulkRows {
+  gap: 0.42rem;
+}
+
+.cardListingLayout.labeledBulkRows.categoryCardListing .bulkRows {
+  gap: 0.5rem;
+}
+
+.cardListingLabeledRow {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  width: 100%;
+  min-width: 0;
+  align-items: stretch;
+}
+
+.cardListingRowCap {
+  font-size: 0.62rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #0369a1;
+}
+
+.cardListingLayout.labeledBulkRows.categoryCardListing .cardListingRowCap {
+  font-size: 0.54rem;
+  letter-spacing: 0.03em;
+}
+
+.labeledBulkRows .cardListingOuterBox {
+  width: 100%;
+  min-width: 0;
+}
+
+.labeledBulkRows .stepper.stepperCardListing {
+  width: 100%;
+  max-width: 100%;
+}
+
+.cardListingLayout.labeledBulkRows.categoryCardListing .stepper.stepperCardListing {
+  min-height: 32px;
+  padding: 0.15rem 0.3rem;
+  gap: 0.2rem;
+  align-items: center;
+}
+
+.labeledBulkRows .cardListingUnitChip {
+  flex: 0 0 var(--moq-unit-chip-width);
+  min-width: var(--moq-unit-chip-width);
+  max-width: var(--moq-unit-chip-width);
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.cardListingLayout.labeledBulkRows.categoryCardListing .stepperCardListing .stepBtn {
+  width: 20px;
+  height: 20px;
+  min-width: 20px;
+  min-height: 20px;
+  flex: 0 0 20px;
+  font-size: 0.76rem;
+  border-radius: 4px;
+}
+
+.cardListingLayout.labeledBulkRows.categoryCardListing .stepperCardListing .stepValue,
+.cardListingLayout.labeledBulkRows.categoryCardListing .stepperCardListing .stepInput {
+  min-width: 1rem;
+  font-size: 0.68rem;
+  line-height: 1;
+}
+
+.cardListingLayout.labeledBulkRows.categoryCardListing .stepperCardListing .stepInput {
+  padding: 0;
+}
+
+.cardListingLayout.labeledBulkRows.categoryCardListing .cardListingUnitChip {
+  font-size: 0.45rem;
+  letter-spacing: 0;
+  margin-left: 0;
+  padding: 0.1rem 0.15rem;
+}
+
+/* Rounded frame around counter row (unit chip inside stepper) */
+/* .cardListingOuterBox {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+  padding: 0.4rem 0.5rem;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  background: #ffffff;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06);
+  box-sizing: border-box;
+} */
+
+.cardListingUnitChip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--moq-unit-chip-width);
+  min-width: var(--moq-unit-chip-width);
+  max-width: var(--moq-unit-chip-width);
+  margin-left: 0.12rem;
+  padding: 0.12rem 0.24rem;
+  border-radius: 6px;
+  font-size: 0.6rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  color: #0369a1;
+  background: linear-gradient(180deg, #e0f2fe 0%, #bae6fd 100%);
+  border: 1px solid #7dd3fc;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex-shrink: 0;
+  box-sizing: border-box;
+}
+
+/* Inner counter strip: − qty + [unit] in one horizontal row */
+.stepper.stepperCardListing {
+  flex: 1 1 auto;
+  min-width: 0;
+  width: 100%;
+  max-width: 100%;
+  min-height: 36px;
+  padding: 0.22rem 0.45rem;
+  gap: 0.35rem;
+  box-sizing: border-box;
+  justify-content: flex-start;
+  background: #ffffff;
+  border: 1px solid #bae6fd;
+  border-radius: 8px;
+}
+
+.cardListingLayout .stepperCardListing .stepBtn {
+  width: 28px;
+  height: 28px;
+  min-width: 28px;
+  min-height: 28px;
+  flex: 0 0 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.cardListingLayout .stepperCardListing .stepValue,
+.cardListingLayout .stepperCardListing .stepInput {
+  font-size: 0.9rem;
+  text-align: center;
+  flex: auto;
+  width: auto;
+  min-width: 2rem;
+  max-width: none;
+}
+
+@media (max-width: 420px) {
+  .root {
+    --moq-unit-chip-width: 4.35rem;
+  }
+
+  .cardListingOuterBox {
+    padding: 0.4rem 0.45rem 0.45rem;
+  }
+
+  .cardListingLayout .stepper.stepperCardListing {
+    min-height: 34px;
+    padding: 0.18rem 0.35rem;
+    gap: 0.28rem;
+  }
+
+  .cardListingLayout .stepperCardListing .stepBtn {
+    width: 26px;
+    height: 26px;
+    min-width: 26px;
+    min-height: 26px;
+    flex: 0 0 26px;
+    font-size: 0.92rem;
+  }
+
+  .cardListingUnitChip {
+    font-size: 0.56rem;
+    padding: 0.16rem 0.35rem;
+  }
+
+  .categoryCardListing {
+    --moq-unit-chip-width: 2.6rem;
+  }
+
+  .cardListingLayout.labeledBulkRows.categoryCardListing .cardListingRowCap {
+    font-size: 0.5rem;
+  }
+
+  .cardListingLayout.labeledBulkRows.categoryCardListing .stepper.stepperCardListing {
+    min-height: 27px;
+    padding: 0.1rem 0.18rem;
+    gap: 0.14rem;
+  }
+
+  .cardListingLayout.labeledBulkRows.categoryCardListing .stepperCardListing .stepBtn {
+    width: 18px;
+    height: 18px;
+    min-width: 18px;
+    min-height: 18px;
+    flex: 0 0 18px;
+    font-size: 0.7rem;
+  }
+
+  .cardListingLayout.labeledBulkRows.categoryCardListing .stepperCardListing .stepValue,
+  .cardListingLayout.labeledBulkRows.categoryCardListing .stepperCardListing .stepInput {
+    min-width: 0.9rem;
+    font-size: 0.62rem;
+  }
+
+  .cardListingLayout.labeledBulkRows.categoryCardListing .cardListingUnitChip {
+    font-size: 0.4rem;
+    letter-spacing: 0;
+    padding: 0.06rem 0.06rem;
+  }
+}
+
+/* compact + card listing: still vertical stack of outer boxes */
+.cardListingLayout.compact .bulkRows {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  align-items: stretch;
+}
+
+.hint {
+  margin: 0;
+  font-size: 0.65rem;
+  color: #64748b;
+  text-align: center;
+  line-height: 1.3;
+}
+
+.compact {
+  gap: 0.3rem;
+}
+
+.compact .bulkRows {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.35rem;
+  align-items: start;
+}
+
+.compact.stackRows .bulkRows {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+/* Hero banner product card only (current usage: compact + stackRows + cardListingLayout) */
+.compact.stackRows.cardListingLayout .cardListingUnitChip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--moq-unit-chip-width);
+  min-width: var(--moq-unit-chip-width);
+  max-width: var(--moq-unit-chip-width);
+  margin-left: 0.2rem;
+  padding: 0.2rem 0.45rem;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  color: #0369a1;
+  white-space: nowrap;
+  box-sizing: border-box;
+  background: linear-gradient(#e0f2fe 0%, #bae6fd 100%);
+  border: 1px solid #7dd3fc;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+
+.compact .rowLabel {
+  font-size: 0.53rem;
+  letter-spacing: 0.03em;
+}
+
+.compact .stepper {
+  min-height: 29px;
+  padding: 0.1rem 0.2rem;
+  gap: 0.1rem;
+}
+
+/* Product detail: two columns; steppers stay compact (no stretched empty space). */
+.detailPage {
+  width: 100%;
+}
+
+.detailPage .bulkRows {
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 1rem 1.25rem;
+  align-items: flex-start;
+}
+
+.detailPage .row {
+  flex: 0 1 auto;
+  min-width: min(100%, 18rem);
+}
+
+@media (max-width: 640px) {
+  .detailPage .bulkRows {
+    flex-direction: column;
+  }
+}
+
+/* Cart line items: narrow column — stack steppers, full-width steppers, no horizontal overflow */
+.cartPageMoq.detailPage .bulkRows {
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  gap: 0.65rem;
+}
+
+.cartPageMoq.detailPage .row {
+  flex: 1 1 auto;
+  min-width: 0;
+  width: 100%;
+  max-width: 100%;
+}
+
+.cartPageMoq.detailPage .stepper {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  justify-content: space-between;
+}
+
+.cartPageMoq.detailPage .stepInput {
+  flex: 1 1 auto;
+  min-width: 2rem;
+  max-width: 100%;
+}
+
+@media (min-width: 720px) {
+  .cartPageMoq.detailPage .bulkRows {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+  }
+
+  .cartPageMoq.detailPage .row {
+    flex: 1 1 calc(50% - 0.5rem);
+    min-width: min(100%, 16rem);
+    width: auto;
+  }
+}
+
+/* Product detail page: large touch-friendly steppers, full width in each column */
+.detailPageLarge .bulkRows {
+  width: 100%;
+  gap: 1.25rem 1.5rem;
+}
+
+.detailPageLarge .row {
+  flex: 1 1 0;
+  min-width: 0;
+  width: 100%;
+  max-width: none;
+}
+
+.detailPageLarge .stepper {
+  width: 100%;
+  max-width: none;
+  min-height: 54px;
+  padding: 0.4rem 0.85rem;
+  gap: 0.55rem;
+  border-radius: 10px;
+  box-sizing: border-box;
+}
+
+.detailPageLarge .stepBtn {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
+  font-size: 1.12rem;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+
+/* Bag row uses .stepValue; packet row uses .stepInput — both must flex so layout matches */
+.detailPageLarge .stepValue,
+.detailPageLarge .stepInput {
+  font-size: 1.05rem;
+  font-weight: 700;
+  flex: 1 1 auto;
+  min-width: 5.5rem;
+  text-align: center;
+}
+
+.detailPageLarge .stepInput {
+  width: auto;
+  max-width: none;
+}
+
+.detailPageLarge .rowLabel {
+  font-size: 0.72rem;
+  margin-bottom: 0.35rem;
+}
+
+.detailPageLarge .unit {
+  font-size: 0.75rem;
+}
+
+@media (max-width: 900px) {
+  .detailPageLarge .bulkRows {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .detailPageLarge .row {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .detailPageLarge .stepper {
+    min-height: 50px;
+    padding: 0.35rem 0.65rem;
+  }
+
+  .detailPageLarge .stepBtn {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    min-height: 40px;
+    font-size: 1.05rem;
+  }
+
+  .detailPageLarge .stepValue,
+  .detailPageLarge .stepInput {
+    font-size: 0.98rem;
+    min-width: 4.5rem;
+  }
+}
+
+.compact .stepBtn {
+  width: 20px;
+  height: 20px;
+  font-size: 0.82rem;
+}
+
+.compact .stepValue,
+.compact .stepInput {
+  font-size: 0.72rem;
+}
+
+.compact .stepInput {
+  width: 1.35rem;
+}
+
+.compact .unit {
+  font-size: 0.56rem;
+  margin-left: 0.06rem;
+}
+
+.compact .hint {
+  font-size: 0.56rem;
+  line-height: 1.2;
+}
+
+@media (max-width: 420px) {
+  .compact .bulkRows {
+    grid-template-columns: 1fr;
+    gap: 0.28rem;
+  }
+
+  .compact .stepper {
+    min-height: 27px;
+  }
+
+  .compact .stepBtn {
+    width: 18px;
+    height: 18px;
+    font-size: 0.78rem;
+  }
+}
+
+/* Hero carousel product card only: bag + packet steppers on one row (two columns) */
+.heroSlideBulk .bulkRows {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 0.5rem 0.65rem;
+  flex-wrap: nowrap;
+}
+
+.heroSlideBulk .bulkRows .row {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+/* Wider “bags” / “pkts” unit chips (hero slide only) */
+.heroSlideBulk .stepper .unit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--moq-unit-chip-width);
+  min-width: var(--moq-unit-chip-width);
+  max-width: var(--moq-unit-chip-width);
+  margin-left: 0.35rem;
+  padding: 0.28rem 0.75rem;
+  border-radius: 6px;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  color: #0369a1;
+  background: linear-gradient(180deg, #e0f2fe 0%, #bae6fd 100%);
+  border: 1px solid #7dd3fc;
+  box-sizing: border-box;
+}
+
+/* Hero carousel: stack MOQ rows on mobile; controls span full card width */
+@media (max-width: 768px) {
+  .heroSlideBulk .bulkRows {
+    flex-direction: column;
+    align-items: stretch;
+    flex-wrap: nowrap;
+    gap: 0.5rem;
+    width: 100%;
+  }
+
+  .heroSlideBulk .bulkRows .row {
+    flex: 0 1 auto;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .heroSlideBulk .row {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .heroSlideBulk .stepper {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    justify-content: space-between;
+  }
+}

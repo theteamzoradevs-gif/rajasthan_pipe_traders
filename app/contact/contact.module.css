@@ -1,0 +1,437 @@
+/* Contact Page Styles */
+
+.contactContainer {
+  width: 100%;
+  min-height: 100vh;
+  background: #f9fafb;
+}
+
+/* Hero Section */
+.heroSection {
+  background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
+  color: white;
+  padding: 80px 20px;
+  text-align: center;
+}
+
+.heroContent {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.mainTitle {
+  font-size: 3.5rem;
+  font-weight: 800;
+  margin: 0 0 20px 0;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.tagline {
+  font-size: 1.5rem;
+  font-weight: 300;
+  margin: 0;
+  opacity: 0.95;
+}
+
+/* Content Wrapper */
+.contentWrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 80px 20px;
+}
+
+/* Contact Layout - Two Column */
+.contactLayout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+  margin-bottom: 80px;
+}
+
+/* Form Section */
+.formSection {
+  background: white;
+  padding: 50px 40px;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+.formTitle {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #1e40af;
+  margin: 0 0 10px 0;
+}
+
+.formSubtitle {
+  font-size: 1rem;
+  color: #6b7280;
+  margin: 0 0 30px 0;
+  line-height: 1.6;
+}
+
+.contactForm {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.formRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.label {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #374151;
+  display: block;
+}
+
+.input,
+.textarea {
+  padding: 12px 16px;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-family: inherit;
+  transition: all 0.3s ease;
+}
+
+.input:focus,
+.textarea:focus {
+  outline: none;
+  border-color: #1e40af;
+  box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.1);
+  background: #f0f4ff;
+}
+
+.input::placeholder,
+.textarea::placeholder {
+  color: #9ca3af;
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 140px;
+}
+
+.buttonGroup {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.sendButton,
+.callButton {
+  padding: 14px 28px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sendButton {
+  background: #1e40af;
+  color: white;
+}
+
+.sendButton:hover {
+  background: #1e3a8a;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(30, 64, 175, 0.3);
+}
+
+.sendButton:active {
+  transform: translateY(0);
+}
+
+.callButton {
+  background: #f97316;
+  color: white;
+  text-decoration: none;
+}
+
+.callButton:hover {
+  background: #ea580c;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(249, 115, 22, 0.3);
+}
+
+/* Info Section */
+.infoSection {
+  display: flex;
+  align-items: flex-start;
+}
+
+.contactInfoGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  width: 100%;
+}
+
+.infoCard {
+  background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
+  color: white;
+  padding: 30px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 4px 16px rgba(30, 64, 175, 0.15);
+  transition: all 0.3s ease;
+}
+
+.infoCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(30, 64, 175, 0.25);
+}
+
+.infoCardIcon {
+  margin-bottom: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #bfdbfe;
+}
+
+.infoCardIcon svg {
+  width: 2.1rem;
+  height: 2.1rem;
+  stroke-width: 2.25;
+}
+
+.infoCardTitle {
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0 0 8px 0;
+  opacity: 0.9;
+}
+
+.infoCardCompany {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0 0 8px 0;
+}
+
+.infoCardText {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.infoCardPhone {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: white;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.3s ease;
+}
+
+.infoCardPhone:hover {
+  opacity: 0.8;
+  text-decoration: underline;
+}
+
+/* Quick Connect / Why Choose Section */
+.quickConnectSection {
+  margin-bottom: 0;
+}
+
+.sectionTitle {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0 0 50px 0;
+  color: #1e40af;
+  text-align: center;
+}
+
+.featuresList {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  margin: 0;
+}
+
+.featureItem {
+  background: white;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.featureItem:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+  transform: translateY(-4px);
+}
+
+.featureIcon {
+  font-size: 2rem;
+  color: #1e40af;
+  font-weight: 800;
+  margin-bottom: 15px;
+  display: block;
+}
+
+.featureTitle {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #1e40af;
+  margin: 0 0 12px 0;
+}
+
+.featureText {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #6b7280;
+  margin: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .heroSection {
+    padding: 60px 20px;
+  }
+
+  .mainTitle {
+    font-size: 2.5rem;
+  }
+
+  .tagline {
+    font-size: 1.25rem;
+  }
+
+  .contentWrapper {
+    padding: 40px 20px;
+  }
+
+  .contactLayout {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    margin-bottom: 60px;
+  }
+
+  .formSection,
+  .infoCard {
+    padding: 35px 25px;
+  }
+
+  .infoCard {
+    padding: 25px;
+  }
+
+  .contactInfoGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .formRow {
+    grid-template-columns: 1fr;
+  }
+
+  .buttonGroup {
+    grid-template-columns: 1fr;
+  }
+
+  .sectionTitle {
+    font-size: 1.5rem;
+    margin-bottom: 30px;
+  }
+
+  .featuresList {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .heroSection {
+    padding: 50px 15px;
+  }
+
+  .mainTitle {
+    font-size: 2rem;
+  }
+
+  .tagline {
+    font-size: 1.1rem;
+  }
+
+  .contentWrapper {
+    padding: 40px 15px;
+  }
+
+  .sectionTitle {
+    font-size: 1.5rem;
+    margin-bottom: 30px;
+  }
+
+  .contactCard {
+    padding: 25px 20px;
+  }
+
+  .cardIcon {
+    font-size: 2rem;
+  }
+
+  .cardTitle {
+    font-size: 1.05rem;
+  }
+
+  .cardText {
+    font-size: 0.95rem;
+  }
+
+  .introText {
+    font-size: 1rem;
+  }
+
+  .quickConnectSection {
+    padding: 30px 20px;
+    margin-bottom: 50px;
+  }
+
+  .quickConnectText {
+    font-size: 1rem;
+  }
+
+  .callButton,
+  .whatsappButton {
+    padding: 12px 25px;
+    font-size: 0.95rem;
+  }
+
+  .featureItem {
+    padding: 20px;
+  }
+
+  .featureIcon {
+    font-size: 1.75rem;
+  }
+
+  .featureTitle {
+    font-size: 1.05rem;
+  }
+
+  .featureText {
+    font-size: 0.95rem;
+  }
+}

@@ -1202,25 +1202,27 @@ export default function AdminProductsPage() {
                     required
                   />
                 </div>
-                {!editingId ? (
-                  <div className="admin-field">
-                    <label htmlFor="p-sku">SKU (Product Code)</label>
-                    <input
-                      id="p-sku"
-                      className="admin-input"
-                      value={form.sku}
-                      onChange={(e) =>
-                        setForm((f) => ({ ...f, sku: e.target.value.toUpperCase() }))
-                      }
-                      placeholder="Leave empty to auto-generate from product name"
-                    />
-                  </div>
-                ) : null}
-                {!editingId ? (
-                  <p className="muted" style={{ marginTop: "-0.1rem", marginBottom: "0.4rem" }}>
-                    Slug is auto-generated from product name. SKU is optional.
-                  </p>
-                ) : null}
+                <div className="admin-field">
+                  <label htmlFor="p-sku">SKU (Product Code)</label>
+                  <input
+                    id="p-sku"
+                    className="admin-input"
+                    value={form.sku}
+                    onChange={(e) =>
+                      setForm((f) => ({ ...f, sku: e.target.value.toUpperCase() }))
+                    }
+                    placeholder={
+                      editingId
+                        ? "Optional; clear to remove SKU from this product"
+                        : "Leave empty to auto-generate from product name"
+                    }
+                  />
+                </div>
+                <p className="muted" style={{ marginTop: "-0.1rem", marginBottom: "0.4rem" }}>
+                  {editingId
+                    ? "Changing SKU updates search and admin lists; it must stay unique. Clearing the field removes the SKU."
+                    : "Slug is auto-generated from product name. SKU is optional."}
+                </p>
                 <div className="admin-field">
                   <label htmlFor="p-cat">Category</label>
                   <select

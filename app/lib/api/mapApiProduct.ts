@@ -166,6 +166,9 @@ export function apiProductToProduct(p: ApiProduct): Product {
     name: p.name,
     brand: brandTrim,
     category: categoryName,
+    ...(typeof p.category?.slug === "string" && p.category.slug.trim()
+      ? { categorySlug: p.category.slug.trim().toLowerCase() }
+      : {}),
     ...(typeof p.sortOrder === "number" ? { sortOrder: p.sortOrder } : {}),
     ...(typeof p.categorySortOrder === "number" ? { categorySortOrder: p.categorySortOrder } : {}),
     subCategory: p.subCategory ?? "",

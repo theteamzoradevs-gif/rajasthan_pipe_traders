@@ -8,6 +8,7 @@ import RelatedProducts from "./RelatedProducts/RelatedProducts";
 import ComboTargetPdpNotice from "./ComboTargetPdpNotice";
 import ComboTriggerPdpHint from "./ComboTriggerPdpHint";
 import type { Product } from "../../data/products";
+import { categoryToSlug } from "../../data/categories";
 import type { ComboTargetAddBlockedInfo } from "@/lib/combo/comboAddGuard";
 
 interface ProductDetailProps {
@@ -31,6 +32,12 @@ export default function ProductDetail({
 }: ProductDetailProps) {
   const aboutText = (product.longDescription || product.description || "").trim();
 
+  const categoryLabel = product.category.replace(/\s+STANDARD\s*$/i, "").trim() || product.category;
+  const categoryPathSlug =
+    (product.categorySlug && product.categorySlug.trim()) ||
+    (product.category.trim() ? categoryToSlug(product.category) : "");
+  const categoryHref = categoryPathSlug ? `/category/${categoryPathSlug}` : null;
+
   return (
     <div className={styles.page}>
       {/* ── Breadcrumb ── */}
@@ -44,7 +51,13 @@ export default function ProductDetail({
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" strokeWidth="2.5">
             <path d="m9 18 6-6-6-6" />
           </svg>
-          <span className={styles.breadcrumbCurrent}>{product.category}</span>
+          {categoryHref ? (
+            <Link href={categoryHref} className={styles.breadcrumbLink}>
+              {categoryLabel}
+            </Link>
+          ) : (
+            <span className={styles.breadcrumbCurrent}>{categoryLabel}</span>
+          )}
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" strokeWidth="2.5">
             <path d="m9 18 6-6-6-6" />
           </svg>

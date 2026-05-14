@@ -8,7 +8,6 @@ export type AdminCategory = {
   image?: string;
   parent: CategoryParent;
   sortOrder: number;
-  sourceSectionLabel?: string;
   isActive: boolean;
   createdAt?: string;
   updatedAt?: string;

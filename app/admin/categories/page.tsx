@@ -43,7 +43,6 @@ const emptyForm = {
   image: "",
   parentId: "" as string,
   sortOrder: 0,
-  sourceSectionLabel: "",
   isActive: true,
 };
 
@@ -246,7 +245,6 @@ export default function AdminCategoriesPage() {
       image: c.image ?? "",
       parentId: c.parent?._id ?? "",
       sortOrder: c.sortOrder ?? 0,
-      sourceSectionLabel: c.sourceSectionLabel ?? "",
       isActive: c.isActive,
     });
     setModalOpen(true);
@@ -266,7 +264,6 @@ export default function AdminCategoriesPage() {
         slug: derivedSlug,
         description: form.description.trim() || undefined,
         image: form.image.trim() || null,
-        sourceSectionLabel: form.sourceSectionLabel.trim() || undefined,
         isActive: form.isActive,
         parent: parentId,
       };
@@ -633,6 +630,44 @@ export default function AdminCategoriesPage() {
                     onChange={(e) => setForm((f) => ({ ...f, description: e.target.value }))}
                   />
                 </div>
+
+                {!editingId ? (
+                  <div className="admin-field">
+                    <label htmlFor="cat-sort">Sort order</label>
+                    <input
+                      id="cat-sort"
+                      type="number"
+                      className="admin-input"
+                      inputMode="numeric"
+                      min={0}
+                      step={1}
+                      value={form.sortOrder}
+                      onChange={(e) => {
+                        setSortConflict(null);
+                        const v = e.target.value;
+                        setForm((f) => ({
+                          ...f,
+                          sortOrder: v === "" ? 0 : Number(v),
+                        }));
+                      }}
+                    />
+                    <p className="muted" style={{ marginTop: 6 }}>
+                      Lower numbers appear first within the same parent group. If this order is already taken, you
+                      can swap after save.
+                    </p>
+                  </div>
+                ) : null}
+
+                <div className="admin-field" style={{ marginBottom: 0 }}>
+                  <label className="admin-check">
+                    <input
+                      type="checkbox"
+                      checked={form.isActive}
+                      onChange={(e) => setForm((f) => ({ ...f, isActive: e.target.checked }))}
+                    />
+                    Active
+                  </label>
+                </div>
               </div>
 
               <div className="admin-form-section">
@@ -645,56 +680,6 @@ export default function AdminCategoriesPage() {
                   onUrlChange={(url) => setForm((f) => ({ ...f, image: url }))}
                   helpText="Uploads to Cloudinary (folder rpt/category/…). Set CLOUDINARY_URL in .env.local."
                 />
-              </div>
-
-              <div className="admin-form-section">
-                <h3 className="admin-form-section-title">Display settings</h3>
-                <div className="admin-field-row">
-                  {!editingId ? (
-                    <div className="admin-field">
-                      <label htmlFor="cat-sort">Sort order</label>
-                      <input
-                        id="cat-sort"
-                        type="number"
-                        className="admin-input"
-                        inputMode="numeric"
-                        min={0}
-                        step={1}
-                        value={form.sortOrder}
-                        onChange={(e) => {
-                          setSortConflict(null);
-                          const v = e.target.value;
-                          setForm((f) => ({
-                            ...f,
-                            sortOrder: v === "" ? 0 : Number(v),
-                          }));
-                        }}
-                      />
-                      <p className="muted" style={{ marginTop: 6 }}>
-                        Lower numbers appear first within the same parent group. If this order is already taken, you can swap after save.
-                      </p>
-                    </div>
-                  ) : null}
-                  <div className="admin-field">
-                    <label htmlFor="cat-source">Source section label (optional)</label>
-                    <input
-                      id="cat-source"
-                      className="admin-input"
-                      value={form.sourceSectionLabel}
-                      onChange={(e) => setForm((f) => ({ ...f, sourceSectionLabel: e.target.value }))}
-                    />
-                  </div>
-                </div>
-                <div className="admin-field" style={{ marginBottom: 0 }}>
-                  <label className="admin-check">
-                    <input
-                      type="checkbox"
-                      checked={form.isActive}
-                      onChange={(e) => setForm((f) => ({ ...f, isActive: e.target.checked }))}
-                    />
-                    Active
-                  </label>
-                </div>
               </div>
 
               {!editingId && sortConflict ? (

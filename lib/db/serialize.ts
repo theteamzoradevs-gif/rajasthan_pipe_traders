@@ -23,6 +23,7 @@ export function serializeCategoryLean(doc: LeanDoc | null): Record<string, unkno
   } else {
     out.parent = null;
   }
+  delete out.sourceSectionLabel;
   return out;
 }
 

@@ -710,11 +710,14 @@ export default function AdminProductsPage() {
       };
 
       if (editingId) {
+        const nameTrim = String(f.name ?? "").trim();
+        const slugTrim = slugFromName(nameTrim);
+        if (!slugTrim) throw new Error("Name is required to auto-generate slug");
         const body: Record<string, unknown> = {
           sku: String(f.sku ?? "").trim().toUpperCase(),
-          name: String(f.name ?? "").trim(),
+          name: nameTrim,
           productKind: "catalog",
-          slug: String(f.slug ?? "").trim().toLowerCase() || undefined,
+          slug: slugTrim,
           category: f.categoryId,
           description: String(f.description ?? "").trim() || undefined,
           brand: String(f.brand ?? "").trim(),
@@ -1198,7 +1201,10 @@ export default function AdminProductsPage() {
                     id="p-name"
                     className="admin-input"
                     value={form.name}
-                    onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
+                    onChange={(e) => {
+                      const name = e.target.value;
+                      setForm((prev) => ({ ...prev, name, slug: slugFromName(name) }));
+                    }}
                     required
                   />
                 </div>
@@ -1220,7 +1226,7 @@ export default function AdminProductsPage() {
                 </div>
                 <p className="muted" style={{ marginTop: "-0.1rem", marginBottom: "0.4rem" }}>
                   {editingId
-                    ? "Changing SKU updates search and admin lists; it must stay unique. Clearing the field removes the SKU."
+                    ? "Changing SKU updates search and admin lists; it must stay unique. Clearing the field removes the SKU. Slug is derived from the product name when you save."
                     : "Slug is auto-generated from product name. SKU is optional."}
                 </p>
                 <div className="admin-field">

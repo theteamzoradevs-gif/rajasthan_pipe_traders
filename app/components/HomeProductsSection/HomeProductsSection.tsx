@@ -66,7 +66,7 @@ export default function HomeProductsSection({ page: pageProp = 1 }: Props) {
   }, [page]);
 
   return (
-    <section className={styles.section}>
+    <section id="shop" className={styles.section}>
       <div className={styles.container}>
         <div className={styles.header}>
           <div className={styles.headingRow}>

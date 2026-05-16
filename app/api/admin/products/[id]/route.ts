@@ -11,6 +11,7 @@ import { CategoryModel } from "@/lib/db/models/Category";
 import { serializeProductLean } from "@/lib/db/serialize";
 import { sanitizeKeyFeaturesInput } from "@/app/lib/sanitizeKeyFeatures";
 import { serverFetchError } from "@/lib/http/apiError";
+import { findProductSlugConflict, productSlugConflictPayload } from "@/lib/db/productSlug";
 import { ensureUniqueProductSlug } from "@/lib/product/ensureUniqueProductSlug";
 
 export const dynamic = "force-dynamic";
@@ -187,7 +188,26 @@ export async function PATCH(req: NextRequest, ctx: Ctx) {
       }
     }
     if (typeof $set.slug === "string") {
-      const resolved = await ensureUniqueProductSlug($set.slug, { excludeProductId: id });
+      const requestedSlug = $set.slug;
+      const currentSlug =
+        typeof current.slug === "string" ? current.slug.trim().toLowerCase() : "";
+      const slugChanging = requestedSlug !== currentSlug;
+      const resolveWithSuffix = body.resolveSlugWithSuffix === true;
+
+      if (slugChanging && !resolveWithSuffix) {
+        const conflict = await findProductSlugConflict(requestedSlug, id);
+        if (conflict) {
+          return NextResponse.json(
+            productSlugConflictPayload(
+              conflict as { _id: mongoose.Types.ObjectId; name: string; slug?: string },
+              requestedSlug
+            ),
+            { status: 409 }
+          );
+        }
+      }
+
+      const resolved = await ensureUniqueProductSlug(requestedSlug, { excludeProductId: id });
       if (resolved === undefined) {
         delete $set.slug;
         $unset.slug = 1;
@@ -276,7 +296,10 @@ export async function PATCH(req: NextRequest, ctx: Ctx) {
     });
   } catch (e) {
     if (e instanceof mongoose.mongo.MongoServerError && e.code === 11000) {
-      return err("Duplicate key (e.g. SKU or slug already exists)", 409);
+      const key = e.keyPattern ? Object.keys(e.keyPattern)[0] : "";
+      if (key === "sku") return err("Another product already uses this SKU", 409);
+      if (key === "slug") return err("Another product already uses this URL slug", 409);
+      return err("Duplicate key (SKU or slug must be unique)", 409);
     }
     return serverFetchError(e);
   }

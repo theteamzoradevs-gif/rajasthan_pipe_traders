@@ -3,9 +3,15 @@ export function formatSizeForHeading(size: string): string {
   return size.replace(/(\d)(MM)\b/gi, (_, digit: string) => `${digit} MM`);
 }
 
-/** e.g. "Double Nail Clamps" + "20MM" → "Double Nail Clamps 20 MM" */
+/**
+ * e.g. "Double Nail Clamps" + "20MM" → "Double Nail Clamps 20 MM".
+ * Omits the size suffix when it is empty or the placeholder "Standard" (single default row from catalog).
+ */
 export function productHeading(name: string, size: string): string {
-  return `${name} ${formatSizeForHeading(size)}`.trim();
+  const n = String(name ?? "").trim();
+  const s = String(size ?? "").trim();
+  if (!s || s.toLowerCase() === "standard") return n;
+  return `${n} ${formatSizeForHeading(s)}`.trim();
 }
 
 /** Which color variant to use for the brand pill (keyword-based). */

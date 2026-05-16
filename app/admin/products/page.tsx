@@ -29,7 +29,7 @@ import { SortableProductRow } from "./SortableProductRow";
 
 const pageSize = 25;
 
-// /** Primary cart unit — derived from inners (packet/box) first, then bulk (bags/carton) */
+/** Primary cart unit — derived from inner (packet/box) first, then bulk (bags/carton) */
 type PackagingPricingUnit =
   | "per_piece"
   | "per_packet"
@@ -709,11 +709,14 @@ export default function AdminProductsPage() {
       };
 
       if (editingId) {
+        const nameTrim = String(f.name ?? "").trim();
+        const slugTrim = slugFromName(nameTrim);
+        if (!slugTrim) throw new Error("Name is required to auto-generate slug");
         const body: Record<string, unknown> = {
           sku: String(f.sku ?? "").trim().toUpperCase(),
-          name: String(f.name ?? "").trim(),
+          name: nameTrim,
           productKind: "catalog",
-          slug: String(f.slug ?? "").trim().toLowerCase() || undefined,
+          slug: slugTrim,
           category: f.categoryId,
           description: String(f.description ?? "").trim() || undefined,
           brand: String(f.brand ?? "").trim(),
@@ -1197,29 +1200,34 @@ export default function AdminProductsPage() {
                     id="p-name"
                     className="admin-input"
                     value={form.name}
-                    onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
+                    onChange={(e) => {
+                      const name = e.target.value;
+                      setForm((prev) => ({ ...prev, name, slug: slugFromName(name) }));
+                    }}
                     required
                   />
                 </div>
-                {!editingId ? (
-                  <div className="admin-field">
-                    <label htmlFor="p-sku">SKU (Product Code)</label>
-                    <input
-                      id="p-sku"
-                      className="admin-input"
-                      value={form.sku}
-                      onChange={(e) =>
-                        setForm((f) => ({ ...f, sku: e.target.value.toUpperCase() }))
-                      }
-                      placeholder="Leave empty to auto-generate from product name"
-                    />
-                  </div>
-                ) : null}
-                {!editingId ? (
-                  <p className="muted" style={{ marginTop: "-0.1rem", marginBottom: "0.4rem" }}>
-                    Slug is auto-generated from product name. SKU is optional.
-                  </p>
-                ) : null}
+                <div className="admin-field">
+                  <label htmlFor="p-sku">SKU (Product Code)</label>
+                  <input
+                    id="p-sku"
+                    className="admin-input"
+                    value={form.sku}
+                    onChange={(e) =>
+                      setForm((f) => ({ ...f, sku: e.target.value.toUpperCase() }))
+                    }
+                    placeholder={
+                      editingId
+                        ? "Optional; clear to remove SKU from this product"
+                        : "Leave empty to auto-generate from product name"
+                    }
+                  />
+                </div>
+                <p className="muted" style={{ marginTop: "-0.1rem", marginBottom: "0.4rem" }}>
+                  {editingId
+                    ? "Changing SKU updates search and admin lists; it must stay unique. Clearing the field removes the SKU. Slug is derived from the product name when you save."
+                    : "Slug is auto-generated from product name. SKU is optional."}
+                </p>
                 <div className="admin-field">
                   <label htmlFor="p-cat">Category</label>
                   <select

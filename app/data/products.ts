@@ -58,6 +58,8 @@ export interface Product {
   brand: string;
   brandCode?: string;
   category: string;
+  /** URL segment for `/category/[slug]` when category comes from Mongo (preferred over slugifying `category`). */
+  categorySlug?: string;
   /** Admin display order within category (1+); 0 = unset — used for listing/related sort */
   sortOrder?: number;
   /** Custom display order specifically for category pages (separate from global sortOrder) */

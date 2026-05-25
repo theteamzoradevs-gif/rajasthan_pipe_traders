@@ -7,8 +7,6 @@ const categorySchema = new mongoose.Schema(
     description: { type: String, trim: true },
     parent: { type: mongoose.Schema.Types.ObjectId, ref: "Category", default: null },
     sortOrder: { type: Number, default: 0 },
-    /** Section title as it appears on the RPT price list PDF */
-    sourceSectionLabel: { type: String, trim: true },
     isActive: { type: Boolean, default: true },
   },
   { timestamps: true }

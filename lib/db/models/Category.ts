@@ -7,7 +7,6 @@ const categorySchema = new Schema(
     description: { type: String, trim: true },
     parent: { type: Schema.Types.ObjectId, ref: "Category", default: null },
     sortOrder: { type: Number, default: 0 },
-    sourceSectionLabel: { type: String, trim: true },
     /** Primary image URL (e.g. Cloudinary secure_url) */
     image: { type: String, trim: true },
     isActive: { type: Boolean, default: true },

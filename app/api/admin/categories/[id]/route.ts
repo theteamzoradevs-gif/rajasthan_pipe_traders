@@ -66,7 +66,6 @@ export async function PATCH(req: NextRequest, ctx: Ctx) {
     if (typeof body.sortOrder !== "undefined") {
       patch.sortOrder = parseSortOrderInput(body.sortOrder);
     }
-    if (typeof body.sourceSectionLabel === "string") patch.sourceSectionLabel = body.sourceSectionLabel;
     if (typeof body.isActive === "boolean") patch.isActive = body.isActive;
     if ("parent" in body) {
       const p = body.parent;

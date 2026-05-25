@@ -68,7 +68,6 @@ Returned in `data` (single) or each element of `data` (list). `parent` is popula
 | `description` | string \| omitted | no | Optional text |
 | `parent` | object \| null | no | Parent category: `{ "_id", "name", "slug" }` or `null` |
 | `sortOrder` | number | yes | Display order (default `0`) |
-| `sourceSectionLabel` | string \| omitted | no | PDF section label from price list seed |
 | `isActive` | boolean | yes | Whether the category is active |
 | `createdAt` | string (ISO date) | yes | From Mongoose timestamps |
 | `updatedAt` | string (ISO date) | yes | From Mongoose timestamps |
@@ -84,7 +83,6 @@ Returned in `data` (single) or each element of `data` (list). `parent` is popula
       "slug": "premium-cable-nail-clips",
       "parent": null,
       "sortOrder": 10,
-      "sourceSectionLabel": "HITECH SQUARE OR TEJAS CRAFT PREMIUM CABLE NAIL CLIPS (SIZES)",
       "isActive": true,
       "createdAt": "2026-04-01T12:00:00.000Z",
       "updatedAt": "2026-04-01T12:00:00.000Z"

@@ -1189,9 +1189,10 @@ export default function AdminProductsPage() {
                   <label htmlFor="p-kind">Product kind</label>
                   <input
                     id="p-kind"
-                    className="admin-input"
+                    className="admin-input admin-input-readonly"
                     value="Catalog"
                     readOnly
+                    aria-readonly="true"
                   />
                 </div>
                 <div className="admin-field">
@@ -1211,7 +1212,13 @@ export default function AdminProductsPage() {
                   <label htmlFor="p-sku">SKU (Product Code)</label>
                   <input
                     id="p-sku"
+                    type="text"
                     className="admin-input"
+                    autoComplete="off"
+                    spellCheck={false}
+                    data-lpignore="true"
+                    data-1p-ignore
+                    data-form-type="other"
                     value={form.sku}
                     onChange={(e) =>
                       setForm((f) => ({ ...f, sku: e.target.value.toUpperCase() }))
@@ -1225,8 +1232,8 @@ export default function AdminProductsPage() {
                 </div>
                 <p className="muted" style={{ marginTop: "-0.1rem", marginBottom: "0.4rem" }}>
                   {editingId
-                    ? "Changing SKU updates search and admin lists; it must stay unique. Clearing the field removes the SKU. Slug is derived from the product name when you save."
-                    : "Slug is auto-generated from product name. SKU is optional."}
+                    ? "You can change the SKU above at any time; it must stay unique across products. Clearing the field removes the SKU. Slug is derived from the product name when you save."
+                    : "Slug is auto-generated from product name. SKU is optional; leave empty to derive from the name when you save."}
                 </p>
                 <div className="admin-field">
                   <label htmlFor="p-cat">Category</label>

@@ -83,10 +83,6 @@ export async function POST(req: NextRequest) {
                   description: typeof body.description === "string" ? body.description : undefined,
                   parent,
                   sortOrder,
-                  sourceSectionLabel:
-                    typeof body.sourceSectionLabel === "string"
-                      ? body.sourceSectionLabel
-                      : undefined,
                   isActive: typeof body.isActive === "boolean" ? body.isActive : true,
                 },
               ],
@@ -125,8 +121,6 @@ export async function POST(req: NextRequest) {
               description: typeof body.description === "string" ? body.description : undefined,
               parent,
               sortOrder: 1,
-              sourceSectionLabel:
-                typeof body.sourceSectionLabel === "string" ? body.sourceSectionLabel : undefined,
               isActive: typeof body.isActive === "boolean" ? body.isActive : true,
             },
           ] as never,

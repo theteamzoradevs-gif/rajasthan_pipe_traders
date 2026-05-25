@@ -10,7 +10,6 @@ export interface ApiCategory extends ApiCategoryRef {
   description?: string;
   parent: ApiCategoryRef | null;
   sortOrder: number;
-  sourceSectionLabel?: string;
   isActive: boolean;
   createdAt: string;
   updatedAt: string;

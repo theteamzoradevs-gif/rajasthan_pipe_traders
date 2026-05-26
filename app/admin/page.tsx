@@ -2,6 +2,10 @@ import Link from "next/link";
 import { getAdminOverviewStats } from "@/lib/db/getAdminOverviewStats";
 import AdminDashboardStats from "./components/AdminDashboardStats";
 
+/** Always read live counts from MongoDB (avoid stale “Total Orders” on Vercel). */
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 const cards = [
   {
     href: "/admin/categories",

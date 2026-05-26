@@ -1,3 +1,4 @@
+import { unstable_noStore as noStore } from "next/cache";
 import { connectDb } from "@/lib/db/connect";
 import { OrderModel } from "@/lib/db/models/Order";
 import { LeadModel } from "@/lib/db/models/Lead";
@@ -10,6 +11,7 @@ export type AdminOverviewStats = {
 };
 
 export async function getAdminOverviewStats(): Promise<AdminOverviewStats> {
+  noStore();
   try {
     await connectDb();
     const [totalOrders, totalLeads, totalBlogs] = await Promise.all([

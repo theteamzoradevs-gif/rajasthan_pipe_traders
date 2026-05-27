@@ -3,7 +3,9 @@ import mongoose from "mongoose";
 import { connectDb } from "@/lib/db/connect";
 import { ProductModel } from "@/lib/db/models/Product";
 import { serverFetchError } from "@/lib/http/apiError";
+import { revalidateStorefrontAfterPriceChange } from "@/lib/catalog/revalidateStorefront";
 import { parseBulkPriceWorkbook } from "@/lib/products/bulkPriceExcel";
+import { buildBulkPriceBulkWriteOp } from "@/lib/products/bulkPriceWrite";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -53,20 +55,13 @@ export async function POST(req: NextRequest) {
       return err("Spreadsheet contains no price updates", 400, { skippedRows });
     }
 
-    const bulkOps = updates.map((update) => ({
-      updateOne: {
-        filter: { _id: new mongoose.Types.ObjectId(update.productId) },
-        update: {
-          $set: {
-            "pricing.basicPrice": update.basicPrice,
-            "pricing.priceWithGst": update.priceWithGst,
-            "pricing.priceListEffectiveDate": new Date(),
-          },
-        },
-      },
-    }));
+    const bulkOps = updates.map((update) => buildBulkPriceBulkWriteOp(update));
 
     const result = await ProductModel.bulkWrite(bulkOps, { ordered: false });
+
+    if (result.modifiedCount > 0 || result.matchedCount > 0) {
+      revalidateStorefrontAfterPriceChange();
+    }
 
     return NextResponse.json({
       data: {

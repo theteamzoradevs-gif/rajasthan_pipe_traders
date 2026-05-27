@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { ApiProductSize } from "@/app/lib/api/types";
 import type { KeyFeatureIcon } from "@/app/data/products";
@@ -997,6 +998,9 @@ export default function AdminProductsPage() {
           <button type="button" className="admin-btn admin-btn-primary" onClick={openCreate}>
             New product
           </button>
+          <Link href="/admin/products/bulk-prices" className="admin-btn admin-btn-ghost">
+            Bulk price update
+          </Link>
           <button
             type="button"
             className="admin-btn admin-btn-ghost"

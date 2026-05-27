@@ -217,6 +217,12 @@
   border: 1px solid #fecaca;
 }
 
+.admin-banner.ok {
+  background: #ecfdf5;
+  color: #065f46;
+  border: 1px solid #a7f3d0;
+}
+
 .admin-toolbar {
   display: flex;
   flex-wrap: wrap;
@@ -1631,6 +1637,85 @@ textarea.admin-input {
 
 .admin-sidebar-logout:hover:not(:disabled) {
   background: rgba(248, 113, 113, 0.2);
+}
+
+/* Bulk price update */
+.admin-bulk-price-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.admin-bulk-price-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+.admin-bulk-price-card .admin-form-section-title {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.admin-bulk-price-desc {
+  margin: 0.35rem 0 1rem;
+  font-size: 0.875rem;
+  color: #4b5563;
+  line-height: 1.5;
+}
+
+.admin-bulk-price-dropzone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  min-height: 120px;
+  padding: 1.25rem;
+  margin-bottom: 0.85rem;
+  border: 2px dashed #cbd5e1;
+  border-radius: 10px;
+  background: #fff;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.admin-bulk-price-dropzone:hover,
+.admin-bulk-price-dropzone.is-dragover {
+  border-color: var(--admin-accent, #0ea5e9);
+  background: #f0f9ff;
+}
+
+.admin-bulk-price-dropzone.has-file {
+  border-style: solid;
+  border-color: #86efac;
+  background: #f0fdf4;
+}
+
+.admin-bulk-price-file-input {
+  display: none;
+}
+
+.admin-bulk-price-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.admin-bulk-price-errors {
+  margin-top: 1rem;
+}
+
+.admin-bulk-price-error-list {
+  margin: 0.5rem 0 0;
+  padding-left: 1.25rem;
+  font-size: 0.875rem;
+  color: #7f1d1d;
 }
 
 .admin-sidebar-logout:disabled {

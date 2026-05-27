@@ -28,6 +28,22 @@ export async function generateStaticParams() {
 /* ── Dynamic Metadata ── */
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
+
+  const doc = await getStorefrontProductBySlug(slug);
+  if (doc) {
+    const product = apiProductToProduct(doc as unknown as ApiProduct);
+    return {
+      title: `${product.name} | Rajasthan Pipe Traders`,
+      description: product.description,
+      keywords: [product.brand, product.category, product.subCategory, ...product.tags].join(", "),
+      openGraph: {
+        title: `${product.name} | Rajasthan Pipe Traders`,
+        description: product.description,
+        images: [product.image],
+      },
+    };
+  }
+
   const staticProduct = getProductBySlug(slug);
   if (staticProduct) {
     return {
@@ -42,36 +58,19 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     };
   }
 
-  const doc = await getStorefrontProductBySlug(slug);
-  if (!doc) {
-    return { title: "Product Not Found | Rajasthan Pipe Traders" };
-  }
-  const product = apiProductToProduct(doc as unknown as ApiProduct);
-  return {
-    title: `${product.name} | Rajasthan Pipe Traders`,
-    description: product.description,
-    keywords: [product.brand, product.category, product.subCategory, ...product.tags].join(", "),
-    openGraph: {
-      title: `${product.name} | Rajasthan Pipe Traders`,
-      description: product.description,
-      images: [product.image],
-    },
-  };
+  return { title: "Product Not Found | Rajasthan Pipe Traders" };
 }
 
 /* ── Page Component ── */
 export default async function ProductPage({ params }: PageProps) {
   const { slug } = await params;
 
-  const staticProduct = getProductBySlug(slug);
-  if (staticProduct) {
-    const relatedProducts = getRelatedProducts(staticProduct, Number.MAX_SAFE_INTEGER);
-    return <ProductDetail product={staticProduct} relatedProducts={relatedProducts} />;
-  }
-
   const doc = await getStorefrontProductBySlug(slug);
   if (!doc) {
-    notFound();
+    const staticProduct = getProductBySlug(slug);
+    if (!staticProduct) notFound();
+    const relatedProducts = getRelatedProducts(staticProduct, Number.MAX_SAFE_INTEGER);
+    return <ProductDetail product={staticProduct} relatedProducts={relatedProducts} />;
   }
 
   const product = apiProductToProduct(doc as unknown as ApiProduct);

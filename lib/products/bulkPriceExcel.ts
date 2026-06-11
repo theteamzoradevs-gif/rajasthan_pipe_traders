@@ -81,7 +81,7 @@ function resolveProductId(row: Record<string, unknown>): string {
   return "";
 }
 
-function derivePricingFromRow(row: Record<string, unknown>): {
+export function derivePricingFromExcelRow(row: Record<string, unknown>): {
   basicPrice: number;
   priceWithGst: number;
 } | null {
@@ -200,7 +200,7 @@ export function parseBulkPriceWorkbook(buffer: Buffer): {
       continue;
     }
 
-    const pricing = derivePricingFromRow(row);
+    const pricing = derivePricingFromExcelRow(row);
     if (!pricing) {
       errors.push({ row: rowNumber, message: "Missing or invalid price / basic_price" });
       continue;

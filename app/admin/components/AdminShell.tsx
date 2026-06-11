@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
-import { FileSpreadsheet, FileText, Package, Users } from "lucide-react";
+import { FilePlus2, FileSpreadsheet, FileText, Package, Users } from "lucide-react";
 import AdminLogoutButton from "./AdminLogoutButton";
 
 type NavItem = {
@@ -62,6 +62,11 @@ const navItems: NavItem[] = [
     href: "/admin/products/bulk-prices",
     label: "Bulk Price Update",
     icon: <FileSpreadsheet size={20} strokeWidth={1.75} aria-hidden />,
+  },
+  {
+    href: "/admin/products/bulk-create",
+    label: "Bulk Product Import",
+    icon: <FilePlus2 size={20} strokeWidth={1.75} aria-hidden />,
   },
   {
     href: "/admin/blogs",

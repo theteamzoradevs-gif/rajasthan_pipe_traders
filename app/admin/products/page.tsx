@@ -1001,6 +1001,9 @@ export default function AdminProductsPage() {
           <Link href="/admin/products/bulk-prices" className="admin-btn admin-btn-ghost">
             Bulk price update
           </Link>
+          <Link href="/admin/products/bulk-create" className="admin-btn admin-btn-ghost">
+            Bulk product import
+          </Link>
           <button
             type="button"
             className="admin-btn admin-btn-ghost"

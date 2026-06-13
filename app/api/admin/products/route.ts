@@ -17,6 +17,7 @@ import { serializeProductLean } from "@/lib/db/serialize";
 import { sanitizeKeyFeaturesInput } from "@/app/lib/sanitizeKeyFeatures";
 import { serverFetchError } from "@/lib/http/apiError";
 import { ensureUniqueProductSlug } from "@/lib/product/ensureUniqueProductSlug";
+import { slugFromName } from "@/lib/slugFromName";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -151,11 +152,7 @@ export async function POST(req: NextRequest) {
               throw new Error("pricing.basicPrice and pricing.priceWithGst (numbers) are required");
             }
             const productKind = body.productKind === "catalog" ? "catalog" : "sku";
-            const slugInput =
-              typeof body.slug === "string" && body.slug.trim()
-                ? body.slug.trim().toLowerCase()
-                : undefined;
-            const slug = await ensureUniqueProductSlug(slugInput);
+            const slug = await ensureUniqueProductSlug(slugFromName(name));
             const kf = sanitizeKeyFeaturesInput(body.keyFeatures);
             const [created] = await ProductModel.create(
               [
@@ -247,11 +244,7 @@ export async function POST(req: NextRequest) {
       return err("pricing.basicPrice and pricing.priceWithGst (numbers) are required", 400);
     }
     const productKind = body.productKind === "catalog" ? "catalog" : "sku";
-    const slugInput =
-      typeof body.slug === "string" && body.slug.trim()
-        ? body.slug.trim().toLowerCase()
-        : undefined;
-    const slug = await ensureUniqueProductSlug(slugInput);
+    const slug = await ensureUniqueProductSlug(slugFromName(name));
     const kf = sanitizeKeyFeaturesInput(body.keyFeatures);
 
     const session = await mongoose.startSession();

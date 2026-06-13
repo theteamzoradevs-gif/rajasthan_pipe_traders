@@ -10,6 +10,7 @@ import { CategoryModel } from "@/lib/db/models/Category";
 import { ProductModel } from "@/lib/db/models/Product";
 import { serializeCategoryLean } from "@/lib/db/serialize";
 import { serverFetchError } from "@/lib/http/apiError";
+import { slugFromName } from "@/lib/slugFromName";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -53,8 +54,14 @@ export async function PATCH(req: NextRequest, ctx: Ctx) {
 
     const patch: Record<string, unknown> = {};
     const unset: Record<string, 1> = {};
-    if (typeof body.name === "string") patch.name = body.name.trim();
-    if (typeof body.slug === "string") patch.slug = body.slug.trim().toLowerCase();
+    if (typeof body.name === "string") {
+      const name = body.name.trim();
+      patch.name = name;
+      const derivedSlug = slugFromName(name);
+      if (derivedSlug) patch.slug = derivedSlug;
+    } else if (typeof body.slug === "string") {
+      patch.slug = body.slug.trim().toLowerCase();
+    }
     if (typeof body.description === "string") patch.description = body.description;
     if ("image" in body) {
       if (body.image === null || body.image === "") {

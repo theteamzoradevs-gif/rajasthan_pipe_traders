@@ -3,20 +3,13 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { AdminCategory } from "../types";
 
-function flashRow(id: string) {
-  const el = document.getElementById(`admin-row-${id}`);
-  if (!el) return;
-  el.scrollIntoView({ behavior: "smooth", block: "center" });
-  el.classList.add("admin-row-highlight");
-  window.setTimeout(() => el.classList.remove("admin-row-highlight"), 2200);
-}
-
 type Props = {
   categories: AdminCategory[];
+  onNavigateToCategory: (id: string) => void;
 };
 
 /** Admin-only: filter categories by name/slug and jump to the table row. */
-export default function AdminCategorySearchBar({ categories }: Props) {
+export default function AdminCategorySearchBar({ categories, onNavigateToCategory }: Props) {
   const [q, setQ] = useState("");
   const [open, setOpen] = useState(false);
   const wrapRef = useRef<HTMLDivElement>(null);
@@ -30,10 +23,10 @@ export default function AdminCategorySearchBar({ categories }: Props) {
   }, [categories, q]);
 
   const goTo = useCallback((id: string) => {
-    flashRow(id);
+    onNavigateToCategory(id);
     setOpen(false);
     setQ("");
-  }, []);
+  }, [onNavigateToCategory]);
 
   useEffect(() => {
     function onDocMouseDown(e: MouseEvent) {

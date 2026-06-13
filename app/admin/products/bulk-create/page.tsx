@@ -153,7 +153,9 @@ export default function BulkProductCreatePage() {
           {result.skippedRows > 0 ? ` Skipped ${result.skippedRows} empty/example row(s).` : ""}
           {result.rowsUsingDefaultCategory > 0
             ? ` ${result.rowsUsingDefaultCategory} row(s) used the default category (category column was blank).`
-            : ""}
+            : ""}{" "}
+          <Link href="/admin/products">View product list</Link> — new imports appear at the end of
+          the list and on the storefront category page.
         </div>
       ) : null}
 

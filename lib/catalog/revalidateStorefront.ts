@@ -7,3 +7,11 @@ export function revalidateStorefrontAfterPriceChange() {
   revalidatePath("/categories", "layout");
   revalidatePath("/products", "layout");
 }
+
+/** Revalidate specific category pages after bulk product import. */
+export function revalidateStorefrontCategorySlugs(slugs: string[]) {
+  for (const slug of slugs) {
+    const trimmed = slug.trim().toLowerCase();
+    if (trimmed) revalidatePath(`/category/${trimmed}`);
+  }
+}

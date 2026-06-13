@@ -13,6 +13,7 @@ import { sanitizeKeyFeaturesInput } from "@/app/lib/sanitizeKeyFeatures";
 import { serverFetchError } from "@/lib/http/apiError";
 import { findProductSlugConflict, productSlugConflictPayload } from "@/lib/db/productSlug";
 import { ensureUniqueProductSlug } from "@/lib/product/ensureUniqueProductSlug";
+import { slugFromName } from "@/lib/slugFromName";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -73,6 +74,10 @@ export async function PATCH(req: NextRequest, ctx: Ctx) {
       if (typeof body[key] === "string") {
         $set[key] = key === "slug" ? (body[key] as string).trim().toLowerCase() : (body[key] as string);
       }
+    }
+    if (typeof $set.name === "string") {
+      const derivedSlug = slugFromName($set.name);
+      if (derivedSlug) $set.slug = derivedSlug;
     }
     if ("brand" in body) {
       if (body.brand === null || body.brand === "") {

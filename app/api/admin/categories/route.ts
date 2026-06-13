@@ -12,6 +12,7 @@ import {
 import { CategoryModel } from "@/lib/db/models/Category";
 import { serializeCategoryLean } from "@/lib/db/serialize";
 import { serverFetchError } from "@/lib/http/apiError";
+import { slugFromName } from "@/lib/slugFromName";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -42,9 +43,9 @@ export async function POST(req: NextRequest) {
     await connectDb();
     const body = (await req.json()) as Record<string, unknown>;
     const name = typeof body.name === "string" ? body.name.trim() : "";
-    const slugRaw = typeof body.slug === "string" ? body.slug.trim().toLowerCase() : "";
+    const slugRaw = slugFromName(name);
     if (!name || !slugRaw) {
-      return err("name and slug are required", 400);
+      return err("name is required", 400);
     }
     const parentId = body.parent;
     let parent: mongoose.Types.ObjectId | null = null;

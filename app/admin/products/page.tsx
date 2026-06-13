@@ -1239,7 +1239,7 @@ export default function AdminProductsPage() {
                 </div>
                 <p className="muted" style={{ marginTop: "-0.1rem", marginBottom: "0.4rem" }}>
                   {editingId
-                    ? "You can change the SKU above at any time; it must stay unique across products. Clearing the field removes the SKU. Slug is derived from the product name when you save."
+                    ? `You can change the SKU above at any time; it must stay unique across products. Clearing the field removes the SKU. Slug updates from the name when you save${form.slug.trim() ? ` (current: ${form.slug.trim()})` : ""}.`
                     : "Slug is auto-generated from product name. SKU is optional; leave empty to derive from the name when you save."}
                 </p>
                 <div className="admin-field">

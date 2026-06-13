@@ -4,6 +4,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { MediaImageField } from "../components/MediaImageField";
 import AdminCategorySearchBar from "../components/AdminCategorySearchBar";
 import type { AdminCategory } from "../types";
+import { slugFromName } from "@/lib/slugFromName";
 import {
   DndContext,
   closestCenter,
@@ -28,12 +29,12 @@ import { CSS } from "@dnd-kit/utilities";
 
 const CATEGORY_PAGE_SIZE = 20;
 
-function slugFromName(name: string): string {
-  return String(name ?? "")
-    .trim()
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "");
+function flashCategoryRow(id: string) {
+  const el = document.getElementById(`admin-row-${id}`);
+  if (!el) return;
+  el.scrollIntoView({ behavior: "smooth", block: "center" });
+  el.classList.add("admin-row-highlight");
+  window.setTimeout(() => el.classList.remove("admin-row-highlight"), 2200);
 }
 
 const emptyForm = {
@@ -180,6 +181,16 @@ export default function AdminCategoriesPage() {
 
   const canPrevPage = page > 0;
   const canNextPage = (page + 1) * CATEGORY_PAGE_SIZE < total;
+  const navigateToCategory = useCallback(
+    (id: string) => {
+      const index = list.findIndex((c) => c._id === id);
+      if (index >= 0) {
+        setPage(Math.floor(index / CATEGORY_PAGE_SIZE));
+      }
+      window.setTimeout(() => flashCategoryRow(id), 50);
+    },
+    [list],
+  );
   const activeCategory = activeCategoryId
     ? list.find((category) => category._id === activeCategoryId) ?? null
     : null;
@@ -256,7 +267,7 @@ export default function AdminCategoriesPage() {
     if (!swapSortOrderWith) setSortConflict(null);
     try {
       const parentId = form.parentId.trim() ? form.parentId.trim() : null;
-      const derivedSlug = editingId ? form.slug.trim().toLowerCase() : slugFromName(form.name);
+      const derivedSlug = slugFromName(form.name);
       if (!derivedSlug) throw new Error("Name is required to auto-generate slug");
 
       const body: Record<string, unknown> = {
@@ -480,7 +491,9 @@ export default function AdminCategoriesPage() {
             {total} category(s) total
           </span>
         </div>
-        {!loading ? <AdminCategorySearchBar categories={list} /> : null}
+        {!loading ? (
+          <AdminCategorySearchBar categories={list} onNavigateToCategory={navigateToCategory} />
+        ) : null}
       </div>
 
       {loading ? (
@@ -616,10 +629,17 @@ export default function AdminCategoriesPage() {
                     id="cat-name"
                     className="admin-input"
                     value={form.name}
-                    onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
+                    onChange={(e) => {
+                      const name = e.target.value;
+                      setForm((f) => ({ ...f, name, slug: slugFromName(name) }));
+                    }}
                     required
                   />
                 </div>
+                <p className="muted" style={{ marginTop: "-0.25rem", marginBottom: "0.5rem" }}>
+                  URL slug updates from the name when you save
+                  {form.slug.trim() ? ` (current: ${form.slug.trim()})` : ""}.
+                </p>
 
                 <div className="admin-field">
                   <label htmlFor="cat-desc">Description</label>

@@ -1,6 +1,10 @@
 import mongoose from "mongoose";
 import { CategoryModel } from "@/lib/db/models/Category";
 import { ProductModel } from "@/lib/db/models/Product";
+import {
+  maxCategorySortOrderInCategory,
+  maxSortOrderInProducts,
+} from "@/lib/db/productSortOrder";
 import { ensureUniqueProductSlug } from "@/lib/product/ensureUniqueProductSlug";
 import type { ParsedBulkCreateRow } from "@/lib/products/bulkCreateExcel";
 
@@ -79,8 +83,11 @@ export function buildMinimalCatalogProduct(params: {
   priceWithGst: number;
   slug: string;
   categoryId: mongoose.Types.ObjectId;
+  sortOrder: number;
+  categorySortOrder: number;
 }) {
-  const { name, brand, basicPrice, priceWithGst, slug, categoryId } = params;
+  const { name, brand, basicPrice, priceWithGst, slug, categoryId, sortOrder, categorySortOrder } =
+    params;
   const effectiveDate = new Date();
 
   return {
@@ -89,8 +96,8 @@ export function buildMinimalCatalogProduct(params: {
     productKind: "catalog" as const,
     slug,
     category: categoryId,
-    sortOrder: 0,
-    categorySortOrder: 0,
+    sortOrder,
+    categorySortOrder,
     sizeOrModel: "Standard",
     isActive: true,
     isNew: false,
@@ -130,8 +137,11 @@ export async function createProductsFromBulkRows(
   rowErrors: BulkCreateRowError[];
 }> {
   const rowErrors: BulkCreateRowError[] = [];
-  const pending: { rowNumber: number; doc: ReturnType<typeof buildMinimalCatalogProduct> }[] =
-    [];
+  const pending: {
+    rowNumber: number;
+    categoryId: mongoose.Types.ObjectId;
+    doc: ReturnType<typeof buildMinimalCatalogProduct>;
+  }[] = [];
 
   for (const row of parsedRows) {
     let categoryId = defaultCategoryId;
@@ -180,6 +190,7 @@ export async function createProductsFromBulkRows(
 
     pending.push({
       rowNumber: row.rowNumber,
+      categoryId,
       doc: buildMinimalCatalogProduct({
         name: row.name,
         brand: row.brand,
@@ -187,12 +198,34 @@ export async function createProductsFromBulkRows(
         priceWithGst: row.priceWithGst,
         slug,
         categoryId,
+        sortOrder: 0,
+        categorySortOrder: 0,
       }),
     });
   }
 
   if (pending.length === 0) {
     return { createdCount: 0, createdIds: [], rowErrors };
+  }
+
+  let nextGlobalSortOrder = await maxSortOrderInProducts();
+  const nextCategorySortOrder = new Map<string, number>();
+
+  for (const item of pending) {
+    const categoryKey = String(item.categoryId);
+    if (!nextCategorySortOrder.has(categoryKey)) {
+      nextCategorySortOrder.set(
+        categoryKey,
+        await maxCategorySortOrderInCategory(item.categoryId)
+      );
+    }
+
+    nextGlobalSortOrder += 1;
+    const categorySortOrder = nextCategorySortOrder.get(categoryKey)! + 1;
+    nextCategorySortOrder.set(categoryKey, categorySortOrder);
+
+    item.doc.sortOrder = nextGlobalSortOrder;
+    item.doc.categorySortOrder = categorySortOrder;
   }
 
   const createdIds: string[] = [];

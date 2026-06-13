@@ -26,6 +26,7 @@ const STOREFRONT_LISTING_PRODUCT_FIELDS: Record<string, 1> = {
   brand: 1,
   subCategory: 1,
   sortOrder: 1,
+  categorySortOrder: 1,
   sizeOrModel: 1,
   image: 1,
   images: 1,

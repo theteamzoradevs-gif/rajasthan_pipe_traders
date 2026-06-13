@@ -1,11 +1,17 @@
 import { NextRequest, NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { connectDb } from "@/lib/db/connect";
+import { CategoryModel } from "@/lib/db/models/Category";
 import { serverFetchError } from "@/lib/http/apiError";
-import { revalidateStorefrontAfterPriceChange } from "@/lib/catalog/revalidateStorefront";
+import {
+  revalidateStorefrontAfterPriceChange,
+  revalidateStorefrontCategorySlugs,
+} from "@/lib/catalog/revalidateStorefront";
 import { parseBulkCreateWorkbook } from "@/lib/products/bulkCreateExcel";
 import {
   createProductsFromBulkRows,
   loadCategoryLookup,
+  resolveCategoryIdFromExcel,
   resolveDefaultCategoryId,
 } from "@/lib/products/bulkCreateProduct";
 
@@ -77,6 +83,26 @@ export async function POST(req: NextRequest) {
 
     if (createdCount > 0) {
       revalidateStorefrontAfterPriceChange();
+      const createdCategoryIds = new Set<string>();
+      for (const item of rows) {
+        let categoryId = defaultCategoryId;
+        if (item.category.trim()) {
+          const resolved = resolveCategoryIdFromExcel(item.category, categoryLookup);
+          if (resolved) categoryId = resolved;
+        }
+        createdCategoryIds.add(String(categoryId));
+      }
+      const categories = await CategoryModel.find({
+        _id: { $in: [...createdCategoryIds] },
+      })
+        .select("slug")
+        .lean();
+      revalidateStorefrontCategorySlugs(
+        categories
+          .map((c) => (typeof c.slug === "string" ? c.slug : ""))
+          .filter(Boolean)
+      );
+      revalidatePath("/admin/products");
     }
 
     return NextResponse.json({

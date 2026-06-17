@@ -27,6 +27,7 @@ import {
 } from "@dnd-kit/sortable";
 import { restrictToVerticalAxis, restrictToWindowEdges } from "@dnd-kit/modifiers";
 import { SortableProductRow } from "./SortableProductRow";
+import { reorderListByTargetPosition } from "../lib/reorderByTargetPosition";
 
 const pageSize = 25;
 
@@ -949,16 +950,19 @@ export default function AdminProductsPage() {
 
     // Move the items in local state
     const newList = arrayMove(list, oldIndex, newIndex);
+    await persistProductReorder(newList);
+  }
 
+  function handleDragCancel() {
+    setActiveProductId(null);
+  }
+
+  async function persistProductReorder(newList: AdminProduct[]) {
     const finalSortOrders = newList.map((_: AdminProduct, index: number) => index + 1);
-
-    // Create the updates mapping: id -> new sort order
     const updates = newList.map((p: AdminProduct, index: number) => ({
       id: p._id,
       sortOrder: finalSortOrders[index] ?? 0,
     }));
-
-    // Optimistically update the list with new sort orders
     const newlyOrderedList = newList.map((p: AdminProduct, index: number) => ({
       ...p,
       sortOrder: finalSortOrders[index] ?? 0,
@@ -977,12 +981,20 @@ export default function AdminProductsPage() {
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : "Reorder failed");
-      void loadProducts(); // Rollback on failure
+      void loadProducts();
     }
   }
 
-  function handleDragCancel() {
-    setActiveProductId(null);
+  async function handleSortOrderChange(id: string, targetOrder: number) {
+    if (appliedSearchRef.current.trim()) {
+      setError(
+        "Clear product search before changing order numbers so the full product list can be renumbered safely."
+      );
+      return;
+    }
+    const newList = reorderListByTargetPosition(list, id, targetOrder);
+    if (!newList) return;
+    await persistProductReorder(newList);
   }
 
   return (
@@ -1091,6 +1103,8 @@ export default function AdminProductsPage() {
                         product={p}
                         index={index}
                         skip={page * pageSize}
+                        maxSortOrder={list.length}
+                        onSortOrderChange={(id, order) => void handleSortOrderChange(id, order)}
                         onEdit={openEdit}
                         onDelete={handleDelete}
                       />

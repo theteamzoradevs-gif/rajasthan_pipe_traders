@@ -3,6 +3,7 @@
 import React from "react";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+import { EditableSortOrderCell } from "../components/EditableSortOrderCell";
 import type { AdminProduct } from "../types";
 
 interface Props {
@@ -10,6 +11,8 @@ interface Props {
   index: number;
   onEdit: (id: string) => void;
   onDelete: (id: string) => void;
+  onSortOrderChange: (id: string, order: number) => void;
+  maxSortOrder: number;
   skip: number;
 }
 
@@ -33,6 +36,8 @@ export function SortableProductRow({
   index,
   onEdit,
   onDelete,
+  onSortOrderChange,
+  maxSortOrder,
   skip,
 }: Props) {
   const thumb = (product.image && String(product.image).trim()) || product.images?.[0] || "";
@@ -110,7 +115,13 @@ export function SortableProductRow({
         )}
       </td>
       <td>{product.category?.name ?? "—"}</td>
-      <td>{product.sortOrder ?? 0}</td>
+      <td>
+        <EditableSortOrderCell
+          value={product.sortOrder ?? 0}
+          max={maxSortOrder}
+          onCommit={(order) => onSortOrderChange(product._id, order)}
+        />
+      </td>
       <td>{product.productKind}</td>
       <td>₹{product.pricing?.priceWithGst ?? "—"}</td>
       <td>{product.isActive ? "Yes" : "No"}</td>

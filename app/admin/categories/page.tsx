@@ -25,6 +25,7 @@ import {
 } from "@dnd-kit/sortable";
 import { restrictToVerticalAxis, restrictToWindowEdges } from "@dnd-kit/modifiers";
 import { SortableCategoryRow } from "./SortableCategoryRow";
+import { reorderListByTargetPosition } from "../lib/reorderByTargetPosition";
 import { CSS } from "@dnd-kit/utilities";
 
 const CATEGORY_PAGE_SIZE = 20;
@@ -361,7 +362,20 @@ export default function AdminCategoriesPage() {
     if (oldIndex === -1 || newIndex === -1) return;
 
     const newList = arrayMove(list, oldIndex, newIndex);
-    setList(newList);
+    await persistCategoryReorder(newList);
+  }
+
+  function handleDragCancel() {
+    setActiveCategoryId(null);
+  }
+
+  async function persistCategoryReorder(newList: AdminCategory[]) {
+    const finalSortOrders = newList.map((_: AdminCategory, index: number) => index + 1);
+    const updatedList = newList.map((c: AdminCategory, index: number) => ({
+      ...c,
+      sortOrder: finalSortOrders[index] ?? 0,
+    }));
+    setList(updatedList);
 
     try {
       const res = await fetch("/api/admin/categories/reorder", {
@@ -375,12 +389,14 @@ export default function AdminCategoriesPage() {
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : "Reorder failed");
-      void load(); // Rollback on failure
+      void load();
     }
-  } 
+  }
 
-  function handleDragCancel() {
-    setActiveCategoryId(null);
+  async function handleSortOrderChange(id: string, targetOrder: number) {
+    const newList = reorderListByTargetPosition(list, id, targetOrder);
+    if (!newList) return;
+    await persistCategoryReorder(newList);
   }
 
   async function openRearrangeProducts(c: AdminCategory) {
@@ -529,6 +545,8 @@ export default function AdminCategoriesPage() {
                       index={index}
                       page={page}
                       pageSize={CATEGORY_PAGE_SIZE}
+                      maxSortOrder={list.length}
+                      onSortOrderChange={(id, order) => void handleSortOrderChange(id, order)}
                       onEdit={openEdit}
                       onDelete={handleDelete}
                       onRearrange={openRearrangeProducts}

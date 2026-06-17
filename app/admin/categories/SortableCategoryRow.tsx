@@ -3,6 +3,7 @@
 import React from "react";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+import { EditableSortOrderCell } from "../components/EditableSortOrderCell";
 import type { AdminCategory } from "../types";
 
 interface Props {
@@ -10,6 +11,8 @@ interface Props {
   index: number;
   onEdit: (c: AdminCategory) => void;
   onDelete: (id: string) => void;
+  onSortOrderChange: (id: string, order: number) => void;
+  maxSortOrder: number;
   page: number;
   pageSize: number;
   comboCount?: number;
@@ -22,6 +25,8 @@ export function SortableCategoryRow({
   index,
   onEdit,
   onDelete,
+  onSortOrderChange,
+  maxSortOrder,
   page,
   pageSize,
   comboCount = 0,
@@ -77,7 +82,13 @@ export function SortableCategoryRow({
         )}
       </td>
       <td>{category.name}</td>
-      <td>{category.sortOrder ?? 0}</td>
+      <td>
+        <EditableSortOrderCell
+          value={category.sortOrder ?? 0}
+          max={maxSortOrder}
+          onCommit={(order) => onSortOrderChange(category._id, order)}
+        />
+      </td>
       <td>{category.isActive ? "Yes" : "No"}</td>
       <td style={{ whiteSpace: "nowrap" }}>
         {comboCount > 0 && onOpenCombo && (

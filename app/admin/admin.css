@@ -562,6 +562,29 @@
   gap: 0.5rem;
 }
 
+/* Keep row actions visible when wide tables scroll horizontally */
+.admin-table--sticky-actions th.admin-table-actions-col,
+.admin-table--sticky-actions td.admin-table-actions-col {
+  position: sticky;
+  right: 0;
+  z-index: 2;
+  background: #fff;
+  box-shadow: -6px 0 10px rgba(15, 23, 42, 0.05);
+}
+
+.admin-table--sticky-actions thead th.admin-table-actions-col {
+  background: #f9fafb;
+  z-index: 3;
+}
+
+.admin-table--sticky-actions tbody tr:hover td.admin-table-actions-col {
+  background: #f8fafc;
+}
+
+.admin-table--sticky-actions tbody tr.admin-row-highlight td.admin-table-actions-col {
+  background: #f0f9ff !important;
+}
+
 @media (max-width: 900px) {
   .admin-orders-table {
     min-width: 0;

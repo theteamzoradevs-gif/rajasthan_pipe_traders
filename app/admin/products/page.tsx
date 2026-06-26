@@ -425,11 +425,17 @@ export default function AdminProductsPage() {
     }
   }, []);
 
-  const loadProducts = useCallback(async (nextSearch?: string, scrollToId?: string, nextCategorySlug?: string) => {
+  const loadProducts = useCallback(
+    async (
+      nextSearch?: string,
+      scrollToId?: string,
+      nextCategorySlug?: string,
+      opts?: { silent?: boolean }
+    ) => {
     const searchTerm = nextSearch !== undefined ? nextSearch : appliedSearchRef.current;
     const categorySlug =
       nextCategorySlug !== undefined ? nextCategorySlug.trim() : appliedCategoryFilterRef.current;
-    setLoading(true);
+    if (!opts?.silent) setLoading(true);
     setError(null);
     try {
       const params = new URLSearchParams({ limit: "500", skip: "0" });
@@ -459,9 +465,10 @@ export default function AdminProductsPage() {
       setMeta({ total: 0 });
       setPendingScrollId(null);
     } finally {
-      setLoading(false);
+      if (!opts?.silent) setLoading(false);
     }
-  }, []);
+  },
+  []);
 
   useEffect(() => {
     void loadCategories();
@@ -637,6 +644,7 @@ export default function AdminProductsPage() {
     setSaving(true);
     setError(null);
     if (!swapSortOrderWith) setSortConflict(null);
+    let savedProductId: string | undefined = editingId ?? undefined;
     try {
       const f = { ...emptyForm, ...form };
       const basicPrice = Number(f.basicPrice);
@@ -757,6 +765,7 @@ export default function AdminProductsPage() {
         const json = (await res.json()) as {
           message?: string;
           code?: string;
+          data?: { _id?: string };
           conflict?: { _id: string; name: string; sortOrder: number };
         };
         if (!res.ok) {
@@ -770,6 +779,7 @@ export default function AdminProductsPage() {
           }
           throw new Error(json.message || res.statusText);
         }
+        savedProductId = json.data?._id ?? editingId ?? undefined;
       } else {
         if (!f.categoryId) throw new Error("Category is required");
         const nameTrim = String(f.name ?? "").trim();
@@ -826,6 +836,7 @@ export default function AdminProductsPage() {
         const json = (await res.json()) as {
           message?: string;
           code?: string;
+          data?: { _id?: string };
           conflict?: { _id: string; name: string; sortOrder: number };
         };
         if (!res.ok) {
@@ -839,11 +850,13 @@ export default function AdminProductsPage() {
           }
           throw new Error(json.message || res.statusText);
         }
+        savedProductId = json.data?._id ?? undefined;
       }
       setSortConflict(null);
       setSortOrderCheckOk(false);
+      setEditingId(null);
       setModalOpen(false);
-      await loadProducts();
+      await loadProducts(undefined, savedProductId, undefined, { silent: true });
     } catch (err) {
       setError(err instanceof Error ? err.message : "Save failed");
     } finally {
@@ -1078,7 +1091,7 @@ export default function AdminProductsPage() {
               onDragCancel={handleDragCancel}
               modifiers={[restrictToVerticalAxis, restrictToWindowEdges]}
             >
-              <table className="admin-table admin-table--nowrap">
+              <table className="admin-table admin-table--nowrap admin-table--sticky-actions">
                 <thead>
                   <tr>
                     <th style={{ width: "40px" }} />
@@ -1092,7 +1105,7 @@ export default function AdminProductsPage() {
                     <th>Kind</th>
                     <th>Price (GST)</th>
                     <th>Active</th>
-                    <th />
+                    <th className="admin-table-actions-col">Actions</th>
                   </tr>
                 </thead>
                 <SortableContext items={pageSlice.map((p) => p._id)} strategy={verticalListSortingStrategy}>

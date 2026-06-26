@@ -92,7 +92,24 @@ export function SortableProductRow({
       <td>
         <code style={{ fontSize: "0.8rem" }}>{product.sku ?? "—"}</code>
       </td>
-      <td>{product.name}</td>
+      <td>
+        <button
+          type="button"
+          className="admin-btn admin-btn-ghost"
+          style={{
+            padding: 0,
+            border: "none",
+            background: "transparent",
+            fontWeight: 500,
+            textAlign: "left",
+            whiteSpace: "normal",
+            maxWidth: "16rem",
+          }}
+          onClick={() => onEdit(product._id)}
+        >
+          {product.name}
+        </button>
+      </td>
       <td>
         {product.brand ? (
           <span
@@ -125,22 +142,23 @@ export function SortableProductRow({
       <td>{product.productKind}</td>
       <td>₹{product.pricing?.priceWithGst ?? "—"}</td>
       <td>{product.isActive ? "Yes" : "No"}</td>
-      <td style={{ whiteSpace: "nowrap" }}>
-        <button
-          type="button"
-          className="admin-btn admin-btn-ghost"
-          style={{ marginRight: 6 }}
-          onClick={() => onEdit(product._id)}
-        >
-          Edit
-        </button>
-        <button
-          type="button"
-          className="admin-btn admin-btn-danger"
-          onClick={() => onDelete(product._id)}
-        >
-          Delete
-        </button>
+      <td className="admin-table-actions-col">
+        <div className="admin-table-actions">
+          <button
+            type="button"
+            className="admin-btn admin-btn-ghost"
+            onClick={() => onEdit(product._id)}
+          >
+            Edit
+          </button>
+          <button
+            type="button"
+            className="admin-btn admin-btn-danger"
+            onClick={() => onDelete(product._id)}
+          >
+            Delete
+          </button>
+        </div>
       </td>
     </tr>
   );

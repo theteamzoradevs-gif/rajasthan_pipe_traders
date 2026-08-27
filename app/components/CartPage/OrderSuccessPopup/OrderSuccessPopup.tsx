@@ -78,6 +78,10 @@ export default function OrderSuccessPopup({
           </ul>
         </div>
 
+        <p className={styles.discountNote}>
+          Final discounts and quotation for your order will be shared shortly by our team
+        </p>
+
         <p className={styles.paymentNote}>
           100% advance payment
           {pricesEffectiveDate ? ` · Prices effective ${pricesEffectiveDate}` : ""}
